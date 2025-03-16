@@ -232,8 +232,6 @@ dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling 
       Hampir tidak berkorelasi kuat dengan variabel lain (mayoritas di bawah 0.10). Jadi **windspeed** juga tidak terlalu “terikat” dengan variabel lain dalam dataset ini.
    3. **day**   <br>
       Korelasinya juga lemah dengan variabel lain (kebanyakan di bawah ±0.15). Ini menunjukkan **day** (mungkin penomoran hari) tidak berasosiasi kuat dengan perubahan variabel cuaca lainnya pada dataset ini.
-   4. **id**  <br>
-      Biasanya index tidak mencerminkan fenomena cuaca. Maka wajar jika korelasinya rendah atau hampir nol dengan variabel lain.
 
 
 🧮 untuk fitur Independent yg multikolinearitas, kita bisa lakukan hal-hal ini :
@@ -250,11 +248,37 @@ dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling 
 
 *Tujuan membuat heatmap dari **Korelasi Pearson** ini adalah untuk melihat interaksi antar variable dan juga untuk menghindari dan menangani variable2 independen yg saling berkorelasi kuat.* <br> 
 ok selanjutnya saya akan menampilkan bagaimana hubungan/korelasi antara variable independent dgn variable dependent (**rainfall**) dgn menggunakan **Korelasi Spearman**. 
+
+![dependent_correlation-spearman](data/dependent-correlation_pearson.png)
+
+📝 Penjelasan :
+   1. **cloud (0.56)** : Memiliki korelasi positif tertinggi dengan rainfall. Artinya, berdasarkan data ini, semakin tinggi nilai cloud, cenderung diikuti oleh meningkatnya rainfall (berlaku sebaliknya).
+   2. **sunshine (-0.51)** : Memiliki korelasi negatif paling kuat dengan rainfall. Semakin tinggi nilai sunshine, data ini menunjukkan kecenderungan rainfall menurun.
+   3. **humidity (0.25)** : **humidity** merupakan fitur ke 3 yg mempunyai **korelasi spearman** terbesar dgn fitur target (**rainfall**) <br>
+   4. Fitur-fitur lainnya seperti <strong>windspeed, winddirection, dewpoint, mintemp, maxtemp, pressure, day </strong> memiliki korelasi yang tidak terlalu besar dengan fitur target (<strong>rainfall</strong>). Kita dapat mempertimbangkan untuk menghapusnya atau memeriksa fitur kepentingan untuk memilih hanya fitur-fitur yang paling penting</span><br>
+
+----------------------------------------------------------------------------------------------------
+
+![kde plot](data/kde-plot.png)
+
+menampilkan kde plot untuk membandingkan distribusi probabilitas antara prediksi hujan dan tidak hujan. *sebenarnya visualisasi kde-plot ini sama dgn visualisasi bar chart dari distribusi rainfall tadi, namun kde-plot ini lebih mudah untuk dibaca*. <br>
+      
 ### 🔗 Feature Importance with Tree-Based Model 🌳
 
 ![feature importances using Tree model](data/rf-feature-importances.png)
 
-terdapat 5 fitur terpenting
+ini adalah bar chart untuk menampilkan fitur paling penting menggunakan Tree-Based Model Random Forest. 5 fitur terpenting nya adalah **cloud, sunshine, humidity, dewpoint, day**.
+*Tujuannya untuk menganalisis base fitur paling penting yg berpengaruh untuk memprediksi klasifikasi dan melakukan feature engineering berdasarkan fitur2 yg paling relevan*
+
+### 🚨 Check for Outliers 🔎
+<br>
+
+![boxplot for checking outlier](data/boxplot.png)
+
+dari box-plot tsb, terdapat beberapa outlier:
+   1. **pressure** : terdapat hanya ada 2 sedikit outlier. outlier seperti ini bisa kita abaikan atau bisa digunakan winsorization untuk membatasi nilai ke dalam threshold tertentu.
+   2. **mintemp** : fitur ini hanya terdapat 1 outlier. kita bisa mengabaikan outlier ini.
+   3. **dewpoint, humidity, cloud, windspeed** : fitur ini terdapat cukup banyak outlier. kita bisa mempertimbangkannya untuk menggunakan teknik *Capping* atau *Winsorization*. kalau misalkan outlier tidak perlu penting, bisa kita hapus outliernya (tidak disarankan untuk ini karena akan menghilangkan informasi penting dari data). kita bisa juga mempertahankan outlier ini , tapi harus menggunakan **Robust Scaling** untuk feature scaling nya , agar model lebih tahan / robust terhadap outlier.
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
@@ -327,24 +351,108 @@ combined_data['high_rain_risk'] = combined_data.apply(set_high_rain, axis=1)
 
 ### Menangani Outlier 🚨
 
+untuk menangani outlier ini , saya menggunakan Teknik Winsorization untuk membatasi sebuah nilai yg melewati threshold. <br>
+
+*Winsorization adalah teknik yang digunakan untuk menangani outlier dgn cara membatasi nilai-nilai ekstrem tersebut pada ambang batas tertentu, sehingga nilai-nilai tersebut tidak lagi menjadi terlalu ekstrem. singkatnya nilai yg melebihi threshold akan diubah ke dalam batas threshold tsb.*
+
+```python
+new_train_data['sunshine_cloud_ratio'] = winsorize(a = new_train_data['sunshine_cloud_ratio'], limits=[0, 0.01])
+new_test_data['sunshine_cloud_ratio'] = winsorize(a = new_test_data['sunshine_cloud_ratio'], limits=[0, 0.01])
+```
+disini saya melakukan *Winsorization* dari train and test data untuk kolom **sunshine_cloud_ratio**. saya menetapkan threshold = 0.01 (99% persentil) . artinya nilai titik data yg melebih 99% persentil akan dibatasi ke nilai threshold tsb.
+
+
 ### Split Dataset ✂️
+```python
+x_train, x_val, y_train, y_val = train_test_split(x,y, test_size=0.20, random_state= 2025, shuffle=True)
+```
+Membagi data menjadi Train and Validation Data dgn proporsi 80/20. train data digunakan untuk melatih data, sedangkan validation data digunakan untuk mengevaluasi hasil model. 
+
 
 ### Feature Scaling 📏
+```python
+cols_to_robust = ['pressure', 'dewpoint', 'humidity', 'cloud', 'windspeed', 'temp_range', 'temp_dew_spread', 'humidity_cloud', 'sunshine_cloud_ratio', 'moisture_index']
+cols_to_zscore = ['day','maxtemp','temparature','mintemp','sunshine','winddirection', 'heat_index', 'wind_east', 'wind_north', 'wind_chill']
+
+# DEFINE NORMALIZATION TECHNIQUE
+robust = RobustScaler()
+zscore = StandardScaler()
+
+# FIT AND TRANSFORM TRAIN DATA
+x_train[cols_to_robust] = robust.fit_transform(x_train[cols_to_robust])
+x_train[cols_to_zscore] = zscore.fit_transform(x_train[cols_to_zscore])
+
+# TRANSFORM VALIDATION DATA
+x_val[cols_to_robust] = robust.transform(x_val[cols_to_robust])
+x_val[cols_to_zscore] = zscore.transform(x_val[cols_to_zscore])
+
+# TRANSFORM TEST DATA
+#new_test_data = copy.deepcopy(test_data)
+new_test_data[cols_to_robust] = robust.transform(new_test_data[cols_to_robust])
+new_test_data[cols_to_zscore] = zscore.transform(new_test_data[cols_to_zscore])
+```
+melakukan feature scaling dgn menggunakan 2 Teknik Normalisasi data. yaitu **Teknik Robust Scaling** , dan **Z-Score Normalization**.
+**Robust Scaling** digunakan ketika data mempunyai outlier yg signifikan dan distribusi data skewed. dan **Z-Score Normalization** digunakan ketika data mendekati distribusi normal.
 
 ### Menangani Imbalance Dataset : OVERSAMPLING ⚖️
+```python
+# SVM SMOTE
+svm_smote = SVMSMOTE(sampling_strategy=0.45, random_state= seed_value, m_neighbors = 3, k_neighbors=4)
+x_resampled, y_resampled = svm_smote.fit_resample(x_train, y_train)
+```
+untuk menangani imbalance data, saya menggunakan teknik SVM SMOTE untuk membuat sintetis dataset. <br>
+**SVM SMOTE** yaitu Teknik Oversampling yg menggabungkan algoritma **SVM** dan **SMOTE** untuk membuat *synthetic data* (data baru). **SVM SMOTE** membuat *Synthetic Data* di daerah yg dekat dgn garis _Hyperplane_ .  <br> <br>
 
+inilah perbandingannya : 
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+![](data/oversampling-scatter-plot.png)
+
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+dalam melakukan tahap Modelling , saya akan mencoba 2 teknik yg berbeda. pertama yaitu menggunakan model Machine Learning, dan yg kedua menggunakan model Deep Learning. <br> <br>
+untuk model Machine Learning, saya akan menggunakan Teknik Ensemble dan Boosting yg dikombinasikan dgn **Optuna** untuk menghasilkan model dgn *Hyperparameter Terbaik*. Tujuan saya dalam menggunakan teknik ini adalah agar model dapat mempelajari Pola Non-Linear dan dapat menangani Data yang Tidak Seimbang. <br><br>
+```python
+Model Boosting bekerja dengan menggabungkan beberapa model yang lebih lemah (weak learner) menjadi satu model yang lebih kuat
+dan berfokus pada perbaikan kesalahan yang dibuat oleh model sebelumnya pada iterasi sebelumnya, sehingga model akhir memiliki
+kemampuan prediksi yang lebih akurat dan kuat untuk data yang kompleks atau tidak seimbang. 
+```
+Teknik Boosting yang saya gunakan, yaitu:
+<ol>
+   <li><strong>Gradient Boosting Machine</strong></li>
+   <li><strong>Light Gradient Boosting Machine</strong></li>
+   <li><strong>Adaptive Boosting</strong></li>
+   <li><strong>Xtreme Gradient Boosting Machine</strong></li>
+   <li><strong>Category Boosting</strong></li>
+</ol>
+<br>
+Kemudian setelah saya membuat semua jenis model *Boosting*, saya akan menggabungkan / menyatukan semua model tersebut menggunakan <strong>Stacking Model </strong>.<br> <br> 
+<strong>Tujuannya adalah menggabungkan semuanya dan untuk menciptakan model yang lebih kuat dan canggih serta mengatasi kelemahan setiap model yang ada.</strong>
+<br> 
+
+-------------------------------------------------------------------------------------------------------------------------
+
+lalu untuk teknik kedua yg saya gunakan yaitu teknik **Deep Learning**. Saya menggunakan **FeedForward Neural Network** untuk membangun sebuah model deep learning, lalu menggunakan **Keras-Tuner** mendapatkan hyperparameters terbaiknya. <br> <br>
+
+
+### A. Machine Learning Model
+
+1. **Gradient Boosting Machine**
+
+
+
+
+
+
+
+
+
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
 - Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
 - Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+
+
 
 ## Evaluation
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
