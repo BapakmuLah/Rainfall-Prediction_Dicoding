@@ -157,27 +157,104 @@ dtype: int64
 Terdapat 1 nilai yg hilang untuk fitur *winddirection* dari dataset test.csv 
 
 ### 📊 Check Data Distribution 🌐
-![](data/DataDistribution.png)
+![Data Distribution Comparison](data/DataDistribution.png)
 
-dari distribusi data tsb, saya membandingkan distribusi antara train and test data. lalu dapat disimpulkan bahwa distribusi data antara data train and test itu terlihat sama satu sama lain.
+dari distribusi data tsb, saya membandingkan distribusi antara train and test data. lalu dapat disimpulkan bahwa distribusi data antara data train and test itu terlihat sama satu sama lain. ok sekarang mari kita tampilkan perbandingan distribusi antara prediksi hujan dan tidak hujan dalam Train data.
 
-🧮 Penjelasan lebih lanjut :
-   - 1️⃣ untuk fitur **days**, Distribusi nya membentuk  <br>
-   - 2️⃣ Using PCA to eliminate Multicollinearity
-   - 3️⃣ Combining variables with multicollinearity then deleting the original variables
-   - 4️⃣ Transforming multicollinearity data (such as log transformation, square root transformation or others)
-   - 5️⃣ Adding Ridge regularization (L2) or Lasso regularization (L1) to add penalty and reduce multicollinearity
-   - 6️⃣ Consider feature selection techniques like Recursive Feature Elimination (RFE)
-   - 7️⃣ Experiment with feature engineering to combine correlated features
-   - 8️⃣ Use ensemble models that can handle correlated features more effectively<
-   - 9️⃣ Try tree-based models that are less sensitive to multicollinearity
-   - 🔟 Test different correlation thresholds for deciding which features to remove
+![Data Distribution Rainfall Distribution](data/Rain-Prediction-Train-data.png)
 
-     
+Note :
+   - Batang berwarna **Kuning** merupakan distribusi untuk Prediksi Hujan
+   - Batang berwarna **Biru muda** merupakan distribusi untuk prediksi tidak hujan
+   - Batang berwarna **abu-abu** merupakan distribusi gabungan antara distribusi hujan dan tidak hujan
+
+🧮 Penjelasan :
+   - 1️⃣ Distribusi hujan dan tidak hujan terlihat hampir merata dan serupa di sepanjang hari. Tidak ada pola signifikan yang memperlihatkan peningkatan probabilitas hujan pada hari-hari tertentu. Fitur **days** tampaknya kurang berpengaruh dalam memprediksi hujan atau tidak hujan, karena distribusinya relatif mirip untuk kedua kategori.<br>
+   - 2️⃣ Saat suhu (**temparature, mintempt, maxtemp**) makin tinggi, proporsi data yang hujan cenderung meningkat. Ini terlihat dari “puncak” histogram untuk hujan yang lebih banyak pada rentang suhu menengah-tinggi.
+   - 3️⃣ Terlihat perbedaan mencolok; pada kelembapan (**humidity**) tinggi (80% ke atas), porsi hujan mendominasi. Pada kelembapan rendah, lebih didominasi tidak hujan.
+   - 4️⃣ Distribusi arah angin (**winddirection**) tampak lebih tersebar dan tidak sejelas fitur lain. Mungkin ada sedikit pola di arah angin tertentu yang lebih sering hujan, namun tidak sedrastis kelembapan atau suhu. Arah angin bisa memiliki pengaruh, tapi tidak sekuat kelembapan atau suhu. 
+   - 5️⃣ Saat tekanan (**pressure**) udara rendah, proporsi hujan terlihat lebih tinggi; sebaliknya, pada tekanan udara tinggi, lebih banyak data tidak hujan.
+   - 6️⃣ Pada tingkat awan (**cloud**) tinggi (mendekati 100%), mayoritas data menunjukkan hujan. Ketika awan rendah (langit lebih cerah), lebih banyak data tidak hujan. Fitur cloud sangat signifikan membedakan hujan dan tidak hujan. semakin banyak awan, semakin besar peluang hujan.
+   - 7️⃣ Ada kecenderungan bahwa hujan muncul pada rentang kecepatan angin (**windspeed**) yang agak lebih tinggi, tapi tidak sedramatis fitur kelembapan/awan. Kecepatan angin memiliki pengaruh sedang. Angin yang lebih kencang kadang menandakan sistem tekanan rendah yang membawa hujan, namun korelasinya tidak selalu kuat.
+   - 8️⃣ Pada titik embun tinggi, hujan cenderung lebih banyak; ini karena titik embun tinggi menandakan kelembapan yang tinggi di udara.
+   - 9️⃣ Ketika durasi sinar matahari (**sunshine**) panjang, mayoritas data adalah tidak hujan. Sebaliknya, pada durasi sinar matahari yang singkat, proporsi hujan meningkat.
+
+<br>
+
+selanjutnya kita akan cek perbandingan distribusi antara Prediksi Hujan dan Tidak Hujan <br>
+
+![rainfall-distribution](data/rainfall-distribution.png)
+
+
+pada distribusi ini , terjadi ketidakseimbangan data (Imbalance Data) antara prediksi hujan dan tidak hujan. 
+```python
+Class Percentages : rainfall
+1    75.34
+0    24.66
+Name: proportion, dtype: float64
+```
+untuk menangani ini, saya akan mencoba melakukan teknik *Oversampling* untuk menangani Imbalance Data ini.
+
+------------------------------------------------------------------------------------------------------
+
+dari distribusi data tsb, mari kita cek seberapa normal distribusi data tsb menggunakan *QQ-Plot*
+
+![QQ-plot](data/QQ-plot.png)
+
+Titik-titik data yang lurus sepanjang garis merupakan distribusi normal. Sementara titik-titik data yang membelok ke kiri/kanan merupakan distribusi yang miring. Nilai R2 menunjukkan seberapa dekat kumpulan data tersebut mendekati distribusi normal. Semakin tinggi nilai R2, semakin dekat dengan distribusi normal.
+dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling mendekati distribusi normal. <br>
+*Tujuan memvisualisasi QQ-plot ialah untuk melihat bentuk dari distribusi data tsb, karena dataset yg mempunyai distribusi normal sangat baik untuk menggunakan model klasifikasi Linear , seperti : **Logistic Regression, Linear Discriminant Analysis (LDA), Support Vector Machine Linear, Perceptron Neural Network, Online Classifier, Passive Aggressive Classifier, Maximum Entropy Classifier**.*
+
 ### 🔗 Check Correlation 🔍
 
+![independent-pearson-correlation](data/independent-correlation_pearson.png)
+
+1. **Korelasi sangat tinggi (Multikolinearitas sangat tinggi)**
+   1. **maxtemp ↔ temperature (0.94)** <br>
+      Nilai korelasinya sangat tinggi (mendekati 1). Artinya, saat **maxtemp** naik, **temperature** juga naik (dan sebaliknya). Keduanya bisa dianggap mengukur aspek suhu yang hampir sama dalam data ini.
+   2. **temperature ↔ mintemp (0.88)** <br>
+      Sama-sama berhubungan kuat. Menunjukkan bahwa ketika **temperature** umum meningkat, **mintemp** juga cenderung meningkat.
+   3. **humidity ↔ dewpoint (0.89)** <br>
+      Keduanya memiliki hubungan yang sangat erat. Bila **dewpoint** meningkat, **humidity** juga meningkat. Ini menunjukkan keduanya memuat informasi kelembapan yang serupa.
+
+2. **Korelasi Tinggi (Multikolinearitas tinggi)**
+   1. **cloud ↔ sunshine (-0.70)** <br>
+      Korelasi negatif kuat. Semakin besar nilai **cloud**, semakin rendah **sunshine**, dan sebaliknya. Artinya, kedua variabel ini saling “menggantikan” satu sama lain di dalam data.
+   2. **pressure ↔ sunshine (0.59) dan pressure ↔ cloud (-0.51)** <br>
+      **pressure** memiliki korelasi positif cukup kuat dengan **sunshine (0.59)** dan negatif dengan **cloud (-0.51)**. Artinya, dalam data ini, saat **pressure** meningkat, **sunshine** cenderung naik, sedangkan **cloud** cenderung turun.
+   3. **maxtemp ↔ sunshine (0.66), temperature ↔ sunshine (0.70), dan mintemp ↔ sunshine (0.53)** <br>
+      Secara umum, kelompok **temperature** (baik **maxtemp**, **temperature**, maupun **mintemp**) menunjukkan korelasi positif moderat dengan **sunshine**, dan negatif dengan **cloud**. Hal ini menggambarkan bahwa saat suhu meningkat, **sunshine** cenderung meningkat, sedangkan **cloud** cenderung menurun.
+
+3. **Korelasi Rendah (Tak ada Multikolinearitas)**
+   1. **winddirection** <br>
+      Secara umum memiliki korelasi yang sangat rendah dengan variabel lain (misal: ~0.01 dengan **windspeed**, ~-0.01 s/d ~0.13 dengan variabel lain). Ini menunjukkan **winddirection** dalam dataset ini relatif berdiri sendiri, tidak bergerak seiring variabel lain.
+   2. **windspeed**  <br>
+      Hampir tidak berkorelasi kuat dengan variabel lain (mayoritas di bawah 0.10). Jadi **windspeed** juga tidak terlalu “terikat” dengan variabel lain dalam dataset ini.
+   3. **day**   <br>
+      Korelasinya juga lemah dengan variabel lain (kebanyakan di bawah ±0.15). Ini menunjukkan **day** (mungkin penomoran hari) tidak berasosiasi kuat dengan perubahan variabel cuaca lainnya pada dataset ini.
+   4. **id**  <br>
+      Biasanya index tidak mencerminkan fenomena cuaca. Maka wajar jika korelasinya rendah atau hampir nol dengan variabel lain.
+
+
+🧮 untuk fitur Independent yg multikolinearitas, kita bisa lakukan hal-hal ini :
+   - 1️⃣ Hapus Variable2 yg saling berkorelasi
+   - 2️⃣ Gunakan _Principal Component Analysis (PCA)_ untuk mengatasi multikolinearitas
+   - 3️⃣ Menggabungkan variabel2 yang multikolinearitas kemudian menghapus variabel asli
+   - 4️⃣ Transformasi data dari variable yg multikolinearitas (seperti transformasi log, transformasi akar kuadrat atau lainnya)
+   - 5️⃣ Menambahkan regularisasi Ridge (L2) atau regularisasi Lasso (L1) untuk menambahkan penalti dan mengurangi multikolinearitas
+   - 6️⃣ Pertimbangkan teknik pemilihan fitur seperti Recursive Feature Elimination (RFE)
+   - 7️⃣ Bereksperimen dengan Feature Engineering untuk menggabungkan fitur-fitur yang berkorelasi
+   - 8️⃣ Gunakan model ensemble yang dapat menangani fitur berkorelasi secara lebih efektif
+   - 9️⃣ Cobalah model berbasis pohon yang kurang sensitif terhadap multikolinearitas
+   - 🔟 Uji ambang korelasi yang berbeda untuk memutuskan fitur mana yang akan dihapus
+
+*Tujuan membuat heatmap dari **Korelasi Pearson** ini adalah untuk melihat interaksi antar variable dan juga untuk menghindari dan menangani variable2 independen yg saling berkorelasi kuat.* <br> 
+ok selanjutnya saya akan menampilkan bagaimana hubungan/korelasi antara variable independent dgn variable dependent (**rainfall**) dgn menggunakan **Korelasi Spearman**. 
 ### 🔗 Feature Importance with Tree-Based Model 🌳
 
+![feature importances using Tree model](data/rf-feature-importances.png)
+
+terdapat 5 fitur terpenting
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
