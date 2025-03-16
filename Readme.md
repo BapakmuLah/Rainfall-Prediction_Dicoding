@@ -157,8 +157,23 @@ dtype: int64
 Terdapat 1 nilai yg hilang untuk fitur *winddirection* dari dataset test.csv 
 
 ### 📊 Check Data Distribution 🌐
+![](data/DataDistribution.png)
 
+dari distribusi data tsb, saya membandingkan distribusi antara train and test data. lalu dapat disimpulkan bahwa distribusi data antara data train and test itu terlihat sama satu sama lain.
 
+🧮 Penjelasan lebih lanjut :
+   - 1️⃣ untuk fitur **days**, Distribusi nya membentuk  <br>
+   - 2️⃣ Using PCA to eliminate Multicollinearity
+   - 3️⃣ Combining variables with multicollinearity then deleting the original variables
+   - 4️⃣ Transforming multicollinearity data (such as log transformation, square root transformation or others)
+   - 5️⃣ Adding Ridge regularization (L2) or Lasso regularization (L1) to add penalty and reduce multicollinearity
+   - 6️⃣ Consider feature selection techniques like Recursive Feature Elimination (RFE)
+   - 7️⃣ Experiment with feature engineering to combine correlated features
+   - 8️⃣ Use ensemble models that can handle correlated features more effectively<
+   - 9️⃣ Try tree-based models that are less sensitive to multicollinearity
+   - 🔟 Test different correlation thresholds for deciding which features to remove
+
+     
 ### 🔗 Check Correlation 🔍
 
 ### 🔗 Feature Importance with Tree-Based Model 🌳
