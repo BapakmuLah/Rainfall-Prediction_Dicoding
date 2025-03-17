@@ -720,15 +720,60 @@ Note : Meta-model bisa menggunakan jenis model yg lain, seperti Logistic Regress
 
 setelah dilatih, maka bentuk pipeline nya seperti ini :
 
-![]()
+![stacking pipeline](https://github.com/BapakmuLah/Rainfall-Prediction_Dicoding/blob/8a95a43014c73e35304bec5bf0242db61e757456/data/Cuplikan%20layar%202025-03-17%20133916.png) 
 
 ok mari kita check base model yg paling berpengaruh dan penting dalam Stacking Model :
 ![base models evaluation](data/stacking-model-result.png)
 
 diurutan pertama ada CatBoost yg memberikan kontribusi signifikan, diikuti dgn AdaBoost, GBM, LGBM, XGBoost. <br> <br>
 
-**ok sekarang saya akan menilai dan mengevaluasi seberapa akurat Stacking Model ini menggunakan Metric Evaluasi Roc-Auc.** 
+**ok sekarang saya akan menilai dan mengevaluasi seberapa akurat Stacking Model ini menggunakan Metric Evaluasi Roc-Auc.**  <br>
 
+
+
+**alasan saya menggunakan ROC-AUC ialah untuk memberikan gambaran keseluruhan kinerja model, tanpa terpengaruh oleh imbalance data (ketidakseimbangan data) dan bisa memberikaan gambaran untuk performa model dari berbagai threshold**. ROC-AUC mempertimbangkan trade-off antara True Positive Rate (TPR) dan False Positive Rate (FPR) pada berbagai ambang batas, sehingga memberikan evaluasi yang lebih stabil dan reliabel dibandingkan metrik lain seperti akurasi, yang bisa menyesatkan ketika dataset tidak seimbang. <br>
+
+- **ROC-AUC terdiri dari 2 komponen utama**
+
+![roc-auc curve](data/ROC-curves-and-area-under-curve-AUC.png)
+
+<br>
+
+1. **ROC CURVE (Receiver Operating Characteristic Curve)**
+   ROC curve adalah grafik yang menggambarkan hubungan antara **True Positive Rate (TPR)** dan **False Positive Rate (FPR)** pada berbagai threshold klasifikasi.
+   - **True Positive Rate (TPR)** : dikenal sebagai recall atau sensitivitas, yaitu mengukur proporsi kasus positif yang benar-benar terdeteksi sebagai positif oleh model.
+     ```python
+     TPR= True Positives / ( False Negatives / True Positive )
+     ```
+   - **False Positive Rate (FPR)** mengukur proporsi kasus negatif yang salah diklasifikasikan sebagai positif oleh model.
+     ```python
+     FPR=  False Positives / (True Negatives + False Positives)
+     ```
+2. **AUC (Area Under the Curve)**
+   AUC mengukur luas area di bawah ROC curve, yang memberi gambaran seberapa baik model dalam membedakan antara kelas positif dan negatif. AUC > 0.5 menunjukkan model yang lebih baik dari tebakan acak, dan semakin mendekati 1 semakin baik.
+
+<br><br>
+![evaluasi stacking roc-auc](data/roc-auc_ML.png)
+
+Nilai AUC sebesar 0,8 menunjukkan bahwa model memiliki kemampuan yang baik dalam membedakan kelas positif (hujan) dan negatif (tidak hujan). Nilai ini berada pada rentang sangat baik (0,8-1,0). ok sekarang mari kita tampilkan nilai distribusi probabilitas nya yg diprediksi oleh model dari data validation
+
+![](data/prediction-probability_ML.png)
+
+- Nilai probabilitas yang mendekati 1 berarti model sangat yakin dalam memprediksi bahwa prediksi tersebut adalah hujan.
+- Nilai probabilitas yang mendekati 0 berarti model sangat yakin dalam memprediksi bahwa tidak akan turun hujan.
+Nilai probabilitas yang berada di tengah-tengah antara rentang 0 - 1 (misalnya ~0,5) menunjukkan bahwa model ragu-ragu dalam memprediksi apakah akan turun hujan atau tidak. <br>
+<strong>Dari histogram Di Atas, model lebih yakin dalam memprediksi data yang diyakini akan turun hujan daripada dalam memprediksi data yang diyakini tidak turun hujan.</strong>
+
+-------------------------------------------------------------------------------------------------------------
+
+### B. Deep Learning Model
+setelah membuat Stacking Model, selanjutnya saya akan membuat Deep Learning Model menggunakan Arsitektur FeedForward Neural Network, dan hasil akhirnya akan saya bandingkan dgn model yg dibuat sebelumnya.  <br>
+
+
+dalam membangun arsitektur Neural Network ini, saya menggunakan Keras-Tuner untuk membuat dan memilih nilai neuron beserta komponen nya yg terbaik secara otomatis
+
+
+   
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
 - Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
