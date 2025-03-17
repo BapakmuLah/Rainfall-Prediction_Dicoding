@@ -2,26 +2,24 @@
 
 ## Domain Proyek
 
-Hujan merupakan salah satu fenomena alam yang menunjukan jatuhnya titik air dari atmosfer ke permukaan bumi. Curah hujan adalah jumlah air yang jatuh di tanah datar selama periode tertentu yang diukur dengan satuan tinggi (mm) di atas permukaan horizontal. Jumlah curah hujan diukur sebagai volume air yang jatuh di atas permukaan bidang datar dalam periode waktu tertentu, yaitu harian, mingguan, bulanan, atau tahunan. Intensitas curah hujan yang tinggi yang sering disebut hujan ekstrem dapat mengakibatkan terjadinya bencana alam (Laia & Setyawan, 2020). [[1]](https://eprints.unpak.ac.id/7983/1/Skripsi_065119023_Feri%20Irawan.pdf) <br>
-Curah hujan yang tidak menentu dapat menyebabkan banjir, kekeringan, dan kerugian ekonomi. Oleh karena itu, prediksi curah hujan yang akurat sangat penting untuk perencanaan dan pengambilan keputusan yang efektif. [[2]](https://ejurnal.itenas.ac.id/index.php/mindjournal/article/view/9220) <br>
-Curah hujan dapat diprediksi dengan menerapkanMachine Learning yang merupakan cabang ilmu turunan dari Artificial Intelligenceatau kecerdasan buatan. Machine Learning membahas bagaimana algoritma komputer dapat mempelajari data yang diinputkan dengan mengenali sifat karakter data atau pola data, kemudian akan mengubah pola data yang berhasil dipelajari menjadi sebuah tindakan yang meminimalisir pekerjaan yang membutuhkan manusia. [[3]](https://repository.unsri.ac.id/83938/3/RAMA_45201_08021381823054_0015096101_0009067603_01_front_ref.pdf) <br>
+Hujan merupakan salah satu fenomena alam yang menunjukan jatuhnya titik air dari atmosfer ke permukaan bumi. Curah hujan adalah jumlah air yang jatuh di tanah datar selama periode tertentu yang diukur dengan satuan tinggi (mm) di atas permukaan horizontal. Jumlah curah hujan diukur sebagai volume air yang jatuh di atas permukaan bidang datar dalam periode waktu tertentu, yaitu harian, mingguan, bulanan, atau tahunan. Intensitas curah hujan yang tinggi yang sering disebut hujan ekstrem dapat mengakibatkan terjadinya bencana alam (Laia & Setyawan, 2020). [[1]](https://eprints.unpak.ac.id/7983/1/Skripsi_065119023_Feri%20Irawan.pdf) <br> <br>
+Curah hujan yang tidak menentu dapat menyebabkan banjir, kekeringan, dan kerugian ekonomi. Oleh karena itu, prediksi curah hujan yang akurat sangat penting untuk perencanaan dan pengambilan keputusan yang efektif. [[2]](https://ejurnal.itenas.ac.id/index.php/mindjournal/article/view/9220) <br> <br>
 
 **Mengapa Masalah ini harus diselesaikan?**:
-1.  Prediksi curah hujan yang akurat sangat penting dalam sektor pertanian, karena membantu petani merencanakan waktu tanam dan panen dengan lebih efisien, sehingga dapat meningkatkan hasil pertanian dan mengurangi risiko gagal panen. [Pentingnya Memahami Cuaca dan Pengaruhnya ke Pertanian](https://ugm.ac.id/id/berita/pentingnya-memahami-cuaca-dan-pengaruhnya-ke-pertanian/) <br>
-2. Dalam perencanaan kota, data curah hujan yang akurat memungkinkan pemerintah dan perencana kota mengelola infrastruktur perkotaan, seperti sistem drainase, untuk mencegah banjir dan kerusakan lainnya. [Pentingnya Sensor Curah Hujan pada Weather Station](https://loggerindo.com/2024/11/14/pentingnya-sensor-curah-hujan-pada-weather-station/) <br>
-3. Curah hujan memiliki peran terpenting dalam menentukan ketersediaan air di berbagai wilayah. Ketika air hujan turun, maka sebagian air akan mengalir di permukaan tanah sebagai limpasan, mengisi waduk, danau, sungai, sedangkan sebagian lainnya meresap ke dalam tanah untuk memperbarui akuifer. Tersedianya curah hujan yang cukup sangat penting untuk menjamin ketersediaan air bagi berbagai kebutuhan manusia, dimulai dari kebutuhan rumah tangga, operasional industri, hingga irigasi pertanian. [Pemantauan Curah Hujan untuk Manajemen Sumber Daya Air yang Berkelanjutan](https://www.mertani.co.id/post/pemantauan-curah-hujan-untuk-manajemen-sumber-daya-air-yang-berkelanjutan)
+1. Oleh karena itu, memprediksi curah hujan sangat penting untuk berbagai kalangan terutama yang beraktivitas di luar ruangan [Prediksi Curah Hujan di Kota Bandung Menggunakan Metode Long Short Term Memory](https://www.jurnal-id.com/index.php/jupin/article/view/99) <br>
+2. Curah hujan memiliki peran terpenting dalam menentukan ketersediaan air di berbagai wilayah. Ketika air hujan turun, maka sebagian air akan mengalir di permukaan tanah sebagai limpasan, mengisi waduk, danau, sungai, sedangkan sebagian lainnya meresap ke dalam tanah untuk memperbarui akuifer. Tersedianya curah hujan yang cukup sangat penting untuk menjamin ketersediaan air bagi berbagai kebutuhan manusia, dimulai dari kebutuhan rumah tangga, operasional industri, hingga irigasi pertanian. [Pemantauan Curah Hujan untuk Manajemen Sumber Daya Air yang Berkelanjutan](https://www.mertani.co.id/post/pemantauan-curah-hujan-untuk-manajemen-sumber-daya-air-yang-berkelanjutan)
 
 
 **Bagaimana Masalah ini diselesaikan?** :
-1. <a href="https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8mExcgIAAAAJ&citation_for_view=8mExcgIAAAAJ:KlAtU1dfN6UC" style="text-decoration: none;">Prediksi Curah Hujan Harian di Stasiun Meteorologi Kemayoran Menggunakan Artificial Neural Network (ANN)</a>
+1. [Prediksi Curah Hujan di Kota Bandung Menggunakan Metode Long Short Term Memory](https://www.jurnal-id.com/index.php/jupin/article/view/99)
+   - Penelitian ini menggunakan arsitektur Long Short Term Memory(LSTM) untuk prediksi curah hujan harian  di  Kota  Bandung,  menunjukkan  hasil  prediksi  yang  diperoleh cukup  baik.Dalam  melakukan prediksi curah hujan harian di Kota Bandung dilakukan pengumpulan data, preprocessing, normalisasi, dan  evaluasi  dengan  menggunakan  RMSE.  Penelitian  ini  menghasilkan  nilai akurasi  tertinggi  yaitu dengan Train ScoreRMSE sebesar 12.24dan Test ScoreRMSE sebesar 8.86 pada prediksi curah hujan di kota bandung.
+
+2. <a href="https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8mExcgIAAAAJ&citation_for_view=8mExcgIAAAAJ:KlAtU1dfN6UC" style="text-decoration: none;">Prediksi Curah Hujan Harian di Stasiun Meteorologi Kemayoran Menggunakan Artificial Neural Network (ANN)</a>
 
    - Penelitian ini memanfaatkan jaringan saraf tiruan untuk memprediksi curah hujan harian di Stasiun Meteorologi Kemayoran. Data cuaca harian dari Januari 2011 hingga Desember 2019 digunakan untuk pelatihan model, yang kemudian diuji dengan data dari Januari hingga Agustus 2020. Variasi model dibuat berdasarkan jenis input dan jumlah lapisan tersembunyi. Hasil penelitian menunjukkan bahwa penggunaan parameter input kondisi cuaca permukaan seperti suhu udara, kelembaban udara, dan durasi penyinaran matahari memberikan nilai koefisien korelasi sebesar 0,4–0,5 dan MAE 9,7–9,8 mm. Sebaliknya, penggunaan data hujan hari-hari sebelumnya sebagai input menghasilkan korelasi 0,1–0,3 dan MAE 11,3–12,3 mm, menunjukkan bahwa parameter cuaca permukaan lebih efektif sebagai prediktor.
 
-2. [Prediksi Curah Hujan di Wilayah DKI Jakarta dengan Model NeuralProphet](https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8Z4345gAAAAJ&citation_for_view=8Z4345gAAAAJ:2P1L_qKh6hAC)
+3. [Prediksi Curah Hujan di Wilayah DKI Jakarta dengan Model NeuralProphet](https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8Z4345gAAAAJ&citation_for_view=8Z4345gAAAAJ:2P1L_qKh6hAC)
    - Penelitian ini menggunakan model NeuralProphet untuk memprediksi curah hujan bulanan dan harian di DKI Jakarta. Data yang digunakan adalah data satelit PERSIAN-CCS dari Januari 2005 hingga Juni 2021. Hasil penelitian menunjukkan bahwa secara spasial, model NeuralProphet dapat mengklasifikasikan persebaran curah hujan di wilayah DKI Jakarta. Namun, terdapat perbedaan nilai yang cukup tinggi antara prediksi dan data observasi. Prediksi bulanan menghasilkan akurasi terbaik dengan korelasi 0,8, RMSE 58,45 mm, dan MAE 23,37 mm, sedangkan prediksi harian memiliki korelasi 0,55, RMSE 10,73 mm, dan MAE 9,32 mm.
-
-3. <a href="https://journal.universitasmulia.ac.id/index.php/seminastika/article/view/237" style="text-decoration: none;">PREDIKSI TINGGI CURAH HUJAN DAN KECEPATAN ANGIN BERDASARKAN DATA CUACA DENGAN PENERAPAN ALGORITMA ARTIFICIAL NEURAL NETWORK (ANN)</a>
-   - Berdasarkan hasil yang telah diperoleh selama   proses   pengerjaan   yaitu   melakukan prediksi  terhadap  curah  hujan  dan  kecepatan angin     maka     dapat     disimpulkan     bahwa pemodelan  terbaik  dalam  melakukan  prediksi curah hujan adalah dengan algoritma Backprpagation  Neural  Network yaitu  dengan dengan  nilai  RMSE  0.079535  yaitu  dengan  20 neuron,  1000 epoch, serta validation  split 0.1. Untuk   pemodelan   terbaik   dalam   melakukan prediksi    kecepatan    angin    adalah    dengan menggunakan    algoritma Reccurent    Neural Network dengan  menggunakan  arsitektur Long Short Term Memory (LSTM) yaitu dengan nilai RMSE   yang   diperoleh   berada   pada   nilai 0.06281251 dengan 30 neuron, 800 epoch, serta validation split 0.1. 
 
 
 ## Business Understanding
@@ -32,7 +30,7 @@ Bagian laporan ini mencakup:
 
 ### Problem Statements
 
-1. Bagaimana cara membangun model yang dapat mengklasifikasikan kejadian hujan yg bisa memprediksi ramalan cuaca di kota besar berdasarkan fitur-fitur yg ada di dataset tsb?
+1. Bagaimana cara membangun model yang dapat mengklasifikasikan kejadian hujan yg bisa memprediksi ramalan cuaca di kota besar dan mencegah terjadinya banjir berdasarkan fitur-fitur yg ada di dataset tsb?
 2. Fitur mana saja yang memiliki korelasi signifikan dan berpengaruh dalam prediksi klasifikasi hujan? Sejauh mana masing-masing fitur mempengaruhi hasil prediksi?
 3. Bagaimana mengatasi ketidakseimbangan kelas pada data target agar model dapat belajar dengan baik dari setiap kelas dan meningkatkan akurasi prediksi, terutama pada kelas minoritas?
 
@@ -769,34 +767,193 @@ Nilai probabilitas yang berada di tengah-tengah antara rentang 0 - 1 (misalnya ~
 ### B. Deep Learning Model
 setelah membuat Stacking Model, selanjutnya saya akan membuat Deep Learning Model menggunakan Arsitektur FeedForward Neural Network, dan hasil akhirnya akan saya bandingkan dgn model yg dibuat sebelumnya.  <br>
 
+![Feedforward Architecture](https://github.com/BapakmuLah/Rainfall-Prediction_Dicoding/blob/b8ebdc06b5ca3f19d138b1fc5f7419f6658f3c73/data/neural-net.png)
+<br>
+dalam membangun arsitektur Neural Network ini, saya menggunakan Keras-Tuner untuk membuat dan memilih nilai neuron beserta komponen nya yg terbaik secara otomatis. penggunaan **Keras-Tuner** Bertujuan untuk menemukan kombinasi hyperparameter yang optimal. 
 
-dalam membangun arsitektur Neural Network ini, saya menggunakan Keras-Tuner untuk membuat dan memilih nilai neuron beserta komponen nya yg terbaik secara otomatis
+```python
+# DEFINE TUNER
+tuner = kt.RandomSearch(hypermodel= build_model, 
+                        objective= kt.Objective('val_auc', direction='max'), 
+                        max_trials= 15, 
+                        seed= 2025, 
+                        tune_new_entries= True, 
+                        allow_new_entries= True, 
+                        max_retries_per_trial= 3, 
+                        max_consecutive_failed_trials=2,
+                        overwrite=True)
 
+# DEFINE CALLBACKS
+early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_auc', patience=24, verbose=0, restore_best_weights=True) 
+reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_auc', patience=10, verbose=1, min_lr= 0.000001, factor=0.4)
 
-   
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+# SEARCH ALL COMBINATION BEST HYPERATAMETERS
+tuner.search(x_train, y_train, batch_size= 32, epochs=100, validation_data= (x_val, y_val), callbacks=[reduce_lr, early_stopping])
+```
+disini saya mendefinisikan Keras-Tuner dan menggunakan fungsi Objective `val_auc` untuk memaksimalkan nilai `val_auc`. lalu saya melakukan pencarian best hyperparameters nya selama 15 trials (Percobaan).
 
+### Hasil Evaluasi
+setelah hasilnya didapatkan, saya mengevaluasinya menggunakan metrics ROC-AUC dari data Validation.
 
+![roc-auc](data/roc-auc_DL.png) 
+<br>
+hasil nya terlihat, terdapat peningkatan nilai ROC-AUC signifikan setelah menggunakan **Neural Network + Best Hyperparameters** , Yaitu nilai ROC-AUC nya sebesar 0.92 . <br>
+
+ok selanjutnya kita tampilkan distribusi probabilitas prediksi nya dan menampilkan **Confusion Matrix Probabilitas** nya 
+![distribusi probabilitas Neural Network](data/prediction-probability_DL.png)
+
+![confusion matrix](data/confusion-matrix_probability.png)
+<br>
+Mari kita plot Feature Importance dari model Neural Network nya
+
+![Feature Importance Shap](data/shap-features.png)
+
+saya melakukan analisis Feature Importance menggunakan SHAP.
+
+- **Penjelasan**
+  1. Nilai shap positif berarti fitur tersebut memiliki dampak positif terhadap prediksi model. Dan nilai shap negatif berarti fitur tersebut memiliki dampak negatif terhadap prediksi model.
+  2. Semakin biru titiknya, semakin besar nilai fiturnya. Semakin merah titik datanya, semakin rendah nilai fiturnya.
+  3. Semakin lebar penyebaran titik, semakin berpengaruh fitur data tersebut.
+  4. Setiap distribusi titik mewakili 1 sampel data
+cloud, sunshine_cloud_ratio, sunshine, humidity_cloud, temp_dew_spread features adalah 5 fitur yang paling berpengaruh untuk prediksi curah hujan
+
+<br><br>
+
+**Dikarenakan Nilai ROC-AUC untuk model Deep Learning lebih baik, Maka saya akan gunakan Model Deep Learning sebagai hasil Akhirnya!**
+<br>
+
+------------------------------------------------------------------------------------------------------
 
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Pada tahap ini, saya akan Mengevaluasi model yg telah didapatkan menggunakan Metrics Evaluasi ROC-AUC. <br>
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+**alasan saya menggunakan ROC-AUC ialah untuk memberikan gambaran keseluruhan kinerja model, tanpa terpengaruh oleh imbalance data (ketidakseimbangan data) dan bisa memberikaan gambaran untuk performa model dari berbagai threshold**. ROC-AUC mempertimbangkan trade-off antara True Positive Rate (TPR) dan False Positive Rate (FPR) pada berbagai ambang batas, sehingga memberikan evaluasi yang lebih stabil dan reliabel dibandingkan metrik lain seperti akurasi, yang bisa menyesatkan ketika dataset tidak seimbang. <br>
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+- **ROC-AUC terdiri dari 2 komponen utama**
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+![roc-auc curve](data/ROC-curves-and-area-under-curve-AUC.png)
 
-**---Ini adalah bagian akhir laporan---**
+<br>
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+1. **ROC CURVE (Receiver Operating Characteristic Curve)**
+   ROC curve adalah grafik yang menggambarkan hubungan antara **True Positive Rate (TPR)** dan **False Positive Rate (FPR)** pada berbagai threshold klasifikasi.
+   - **True Positive Rate (TPR)** : dikenal sebagai recall atau sensitivitas, yaitu mengukur proporsi kasus positif yang benar-benar terdeteksi sebagai positif oleh model.
+     ```python
+     TPR= True Positives / ( False Negatives / True Positive )
+     ```
+   - **False Positive Rate (FPR)** mengukur proporsi kasus negatif yang salah diklasifikasikan sebagai positif oleh model.
+     ```python
+     FPR=  False Positives / (True Negatives + False Positives)
+     ```
+2. **AUC (Area Under the Curve)**
+   AUC mengukur luas area di bawah ROC curve, yang memberi gambaran seberapa baik model dalam membedakan antara kelas positif dan negatif. AUC > 0.5 menunjukkan model yang lebih baik dari tebakan acak, dan semakin mendekati 1 semakin baik.
 
+![roc-auc](data/roc-auc_DL.png) 
+
+nilai ROC-AUC sebesar 0.92 merupakan hasil yg paling baik diantara model-model sebelumnya. nilai ROC-AUC 0.92 menunjukkan jika model sangat baik dan yakin untuk dalam membedakan antara prediksi hujan dan tidak hujan. <br>
+
+ok langkah selanjutnya saya akan memprediksi menggunakan **Data Test** yg belum terlihat sebelumnya. **Data Test** ini terdiri dari 720 sample data.
+<br>
+
+`y_predict = best_model.predict(new_test_data)`
+<br><br>
+setelah diprediksi, saya akan memvisualisasikan beberapa plot 
+
+![](data/predicted-class_test-data.png)
+
+barplot itu menunjukkan bahwa model lebih banyak mengenali data yg dianggap hujan dibanding tidak hujan. terlihat hampir 70% model memprediksi data test sebagai hujan, yg mana 579 jumlah data diprediksi sebagai hujan , sedangkan 151 data lainnya diprediksi sebagai tidak hujan oleh model.
+
+![](data/prediction-probability_test-data.png)
+
+Distribusi Probabilitas ini menunjukkan seberapa yakin model melakukan Prediksi terhadap data test. nilai yg mendekati 1 artinya model sangat yakin jika data yg diprediksi merupakan data yg diklasifikasikan sebagai hujan, dan nilai yg mendekati 0 artinya model sangat yakin jika data yg diprediksi merupakan data yg diklasifikasikan sebagai tidak hujan. nilai yg berada di tengah-tengah (diantara 0.5) artinya model ragu2 untuk menentukan apakah data tsb akan diklasifikasikan sebagai hujan/tidak hujan. <br><br>
+
+**ok terakhir kita akan mengecek Karakteristik data untuk setiap kategori hujan dan tidak hujan yg telah diprediksi oleh model**
+
+- ### Pertama, Saya akan mengecek Karakteristik setiap Fitur apakah terdapat perbedaan Signifikan antara Data yg diprediksi hujan dan Data yg diprediksi Tidak Hujan oleh Model.
+<br>
+untuk Melakukan Perbandingan, Saya menggunakan Uji Statistik Uji-T. hasilnya : <br>
+
+| Variable               | t-statistic  | p-value         | Corrected p-value | Ditolak |
+|------------------------|--------------|-----------------|--------------------|---------|
+| day                   | 0.336915     | 7.362778e-01    | 1.000000e+00       | False   |
+| pressure              | -0.516795    | 6.054565e-01    | 1.000000e+00       | False   |
+| maxtemp               | 3.390152     | 7.362096e-04    | 1.546040e-02       | True    |
+| temparature           | 2.397630     | 1.675244e-02    | 3.518013e-01       | False   |
+| mintemp               | 1.527330     | 1.271134e-01    | 1.000000e+00       | False   |
+| dewpoint              | -1.720637    | 8.574171e-02    | 1.000000e+00       | False   |
+| humidity              | -15.133142   | 3.477611e-45    | 7.302983e-44       | True    |
+| cloud                 | -41.457254   | 8.305177e-194   | 1.744087e-192      | True    |
+| sunshine              | 29.613234    | 4.265211e-127   | 8.956943e-126      | True    |
+| winddirection         | 0.430197     | 6.671796e-01    | 1.000000e+00       | False   |
+| windspeed             | -4.931140    | 1.013404e-06    | 2.128148e-05       | True    |
+| temp_range            | 7.195194     | 1.554209e-12    | 3.263839e-11       | True    |
+| temp_dew_spread       | 12.407878    | 3.313035e-32    | 6.957374e-31       | True    |
+| heat_index            | -1.620497    | 1.055585e-01    | 1.000000e+00       | False   |
+| wind_east             | -1.142698    | 2.535398e-01    | 1.000000e+00       | False   |
+| wind_north            | 0.524391     | 6.001662e-01    | 1.000000e+00       | False   |
+| humidity_cloud        | -35.403967   | 1.925359e-160   | 4.043253e-159      | True    |
+| sunshine_cloud_ratio  | 36.460548    | 2.163809e-166   | 4.543998e-165      | True    |
+| moisture_index        | -5.728082    | 1.486341e-08    | 3.121316e-07       | True    |
+| wind_chill            | 2.461508     | 1.406628e-02    | 2.953919e-01       | False   |
+| high_rain_risk        | -15.336486   | 3.286861e-46    | 6.902408e-45       | True    |
+
+<br>
+
+- **Terminology :**
+      <ol>
+          <li><strong>t-statistics</strong> : perbedaan nilai antara rata-rata 2 kelompok berbeda dari nol(diukur dalam standard error)</li>
+          <li><strong>p-value</strong> : nilai probabilitas yang menunjukkan seberapa kuat hasil uji statistik yg mendukung Hipotesis H0</li>
+          <li><strong>corrected p-value</strong> : nilai p-value yg telah dilakukan <strong>Bonferroni Correction</strong></li>
+          <li><strong>ditolak? </strong>: Keputusan akhir hipotesis.(<strong>False = Hipotesis H0 tidak ditolak, True = Hipotesis H0 Ditolak</strong>)</li>
+      </ol>
+
+dari hasil diatas, saya membandingkan apakah ada perbedaan yg signifikan antara prediksi hujan dan tidak hujan untuk masing2 fitur menggunakan tingkat kepercayaan 95%. kira-kira seperti ini hipotesisnya : 
+      <ul>
+          <li><strong>Hipotesis H0</strong> : Tidak ada perbedaan signifikan antara rata-rata kedua kelompok. Artinya terdapat persamaan antara data yg diprediksi hujan dan tidak hujan. (Hipotesis H0 Tidak Ditolak)</li>
+          <li><strong> Hipotesis H1</strong> : Terdapat perbedaan signifikan antara rata-rata kedua kelompok. Artinya data hujan dan tidak hujan sangat berbeda nilainya. (Hipotesis H0 Ditolak)</li>
+      </ul>
+
+<ol>
+          <li>Jika nilai p-value <= 0.05 , kita bisa menolak hipotesis H0. Artinya Hipotesis H1 diterima (terdapat perbedaan signifikan antara data hujan dan tidak hujan)</li>
+          <li>Jika nilai p-value > 0.05, kita bisa mempertahankan hipotesis H0. Artinya tidak ada cukup bukti yg menyatakan kalau data hujan dan tidak hujan itu memiliki nilai perbedaan yg signifikan</li>
+      </ol>
+<br>
+<strong>dari hasil dataframe tersebut,11 dari 21 fitur tsb bernilai _true_ , artinya ia memiliki perbedaan nilai antara data yg diprediksi hujan dgn tidak hujan. dan sisanya yaitu 10 fitur memiliki kesamaan nilai antara data hujan dan tidak hujan.</strong> <br> <br>
+
+- Fitur-fitur yg mempunyai perbedaan (True) = <strong>maxtemp, humidity, cloud, sunshine, windspeed, temp_range, temp_dew_spread, humidity_cloud, sunshine_cloud_ratio, moisture_index, high_rain_risk </strong> <br>
+- Fitur-fitur yg tidak mempunyai perbedaan (False) = <strong>day, pressure, temparature, mintemp, dewpoint, winddirection, heat_index, wind_east, wind_north, wind_chill</strong>
+
+
+- ### Kedua, Mari Kita bandingkan Statistik Deskriptif Nya dan Simpulkan
+
+**Analisis Perbandingan antara Data hujan dan tidak hujan:**
+  <ul>
+      <li>sample untuk data tidak hujan berjumlah 151 sample, sedangkan sample untuk data hujan berjumlah 579 sample, 60% lebih banyak dibanding sample tidak hujan.</li> <br>
+      <li><strong>cloud : </strong>Pada data prediksi hujan, tutupan awan tidak hanya memiliki rata-rata tinggi (84.03%) tetapi juga distribusi yang sempit dengan nilai minimum 46% dan maksimum 100%. Kuartil pertama sudah mencapai 81%, menunjukkan dominasi langit berawan. Kontras dengan prediksi tidak hujan yang memiliki distribusi lebih lebar (0-73%) dengan median hanya 49%, menandakan kondisi langit yang jauh lebih bervariasi dan secara umum lebih cerah.</li> <br>
+      <li><strong>humidity : </strong>Kelembaban rata-rata prediksi hujan sangat tinggi (84.62%), dengan minimum 49% dan maksimum 98%. sementara Kelembaban rata-rata 75.19%, jauh lebih rendah dari dataset prediksi hujan (84.62%). Pada data hujan, 75% dari sampel memiliki kelembaban di atas 79%, sementara pada data tidak hujan, hanya 25% sampel yang mencapai kelembaban 78% atau lebih tinggi. Ini menunjukkan kelembaban konsisten tinggi adalah prasyarat untuk prediksi hujan.</li> <br>
+      <li><strong>sunshine : </strong>Distribusi durasi sinar matahari pada kedua dataset sangat kontras. Pada prediksi hujan, 75% sampel memiliki sinar matahari kurang dari 3.5 jam dengan median hanya 1.3 jam. Sebaliknya, pada prediksi tidak hujan, 75% sampel memiliki sinar matahari minimal 8.1 jam dengan median 9.1 jam. Deviasi standar pada data tidak hujan juga lebih kecil (1.73 vs 2.61), menunjukkan konsistensi kondisi cerah.</li> <br>
+      <li><strong>windspeed : </strong>Kecepatan angin rata-rata pada prediksi hujan ialah 23.40 km/jam. sementara Kecepatan angin rata-rata untuk prediksi tidak hujan berkisar 18.98 km/jam, lebih rendah dari dataset prediksi hujan. Meski rata-rata kecepatan angin lebih tinggi pada kondisi hujan, distribusinya menunjukkan perbedaan menarik. Pada data hujan, kecepatan angin maksimum mencapai 59.5 km/jam dengan standar deviasi tinggi (10.04), menunjukkan potensi kondisi badai. Pada data tidak hujan, nilai maksimum hanya 50.6 km/jam dengan distribusi lebih sempit (standar deviasi 8.79).</li> <br>
+      <li><strong>temp_range, temparature, mintemp, maxtemp : </strong>Prediksi tidak hujan menunjukkan rentang suhu harian yang konsisten lebih lebar di seluruh distribusi. Kuartil pertama, median, dan kuartil ketiga semuanya lebih tinggi dibandingkan data hujan, dengan median 5.0°C vs 4.1°C. Ini menunjukkan perubahan suhu lebih dinamis dalam kondisi tidak hujan, konsisten dengan radiasi matahari yang lebih tinggi di siang hari dan pendinginan radiasional yang lebih efektif di malam hari.</li> <br>
+      <li><strong>heat_index : </strong>Meski rata-rata heat index tidak terlalu berbeda (20.64°C vs 19.85°C), sebaran data menunjukkan perbedaan penting. Pada data hujan, distribusi cenderung lebih sempit di sekitar nilai tengah (IQR = 24.93-16.90 = 8.03), sementara pada data tidak hujan, distribusi lebih lebar (IQR = 24.83-16.53 = 8.30) dengan nilai minimum lebih rendah. Ini mengindikasikan kondisi termal yang lebih stabil pada kondisi hujan.</li>  <br>
+      <li><strong>moisture_index : </strong>Indeks kelembaban menunjukkan distribusi yang sangat berbeda. Pada data hujan, distribusi lebih lebar dengan standar deviasi 444.16 dan rentang dari ~0 hingga 2434.6. Pada data tidak hujan, meski rata-rata lebih rendah, distribusi jauh lebih lebar dengan nilai maksimum mencapai 2340.7. Distribusi ini menunjukkan bahwa meski kelembaban umumnya lebih rendah pada kondisi tidak hujan, terdapat heterogenitas yang lebih tinggi.</li>  <br>
+      <li><strong>wind_east, wind_north (komponen angin) : </strong>Analisis komponen angin menunjukkan perbedaan menarik. Pada data hujan, komponen angin utara (wind_north) memiliki distribusi yang sangat lebar dengan standar deviasi tinggi (17.83). Sebaliknya, pada data tidak hujan, sebaran lebih sempit dengan standar deviasi 15.33. Hal ini mengindikasikan kondisi angin yang lebih variatif pada kondisi hujan.</li>
+  </ul> <br>
+
+### **Kesimpulan :** 
+  Berdasarkan analisis perbandingan antara data hujan dan tidak hujan, dapat disimpulkan bahwa ada perbedaan signifikan antara kedua kondisi cuaca ini yang dapat dimanfaatkan untuk memprediksi potensi hujan dan mencegah banjir di kota. Beberapa fitur cuaca yang memiliki pengaruh besar terhadap prediksi hujan dan tidak hujan antara lain cloud, humidity, sunshine, windspeed, temparature.
+
+<br><br><br>
+
+
+# Referensi
+
+> 1. Fery Irawan (2024). PREDIKSI CURAH HUJAN MENGGUNAKAN RECURRENT NEURAL NETWORK (RNN) DAN LONG SHORT-TERM MEMORY (LSTM). Retrieved from https://eprints.unpak.ac.id/7983/1/Skripsi_065119023_Feri%20Irawan.pdf
+
+> 2. Galih Ashari Rakhmat, Wisnu Mutohar (2023). Prakiraan Hujan menggunakan Metode Random Forest dan Cross Validation. Retrieved from https://ejurnal.itenas.ac.id/index.php/mindjournal/article/view/9220
+
+> 3. Riza Farikhul Firdaus , Irving Vitra Paputungan (2022). Prediksi Curah Hujan di Kota Bandung Menggunakan Metode Long Short Term Memory. Retrieved from https://www.jurnal-id.com/index.php/jupin/article/view/99
+
+> 4. Richard Mahendra Putra, Nurhastuti Anjar Rani (2020). Prediksi Curah Hujan Harian di Stasiun Meteorologi Kemayoran Menggunakan Artificial Neural Network (ANN). Retrieved from https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8mExcgIAAAAJ&citation_for_view=8mExcgIAAAAJ:KlAtU1dfN6UC
+
+> 5. Cristianto Sihombing, Agung Hari Saputra, Fitria Puspita Sari, Aditya Mulya (2023). Prediksi Curah Hujan di Wilayah DKI Jakarta dengan Model NeuralProphet. Retrieved from https://scholar.google.com/citations?view_op=view_citation&hl=id&user=8Z4345gAAAAJ&citation_for_view=8Z4345gAAAAJ:2P1L_qKh6hAC
