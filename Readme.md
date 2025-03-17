@@ -663,7 +663,7 @@ Singkatnya, CatBoost adalah implementasi dari Gradient Boosting yang mengoptimal
 gradient descent untuk meminimalkan fungsi kerugian (loss function).
 ```
 
-- **Cara Kerja** : CatBoost bekerja dengan menggunakan prinsip gradient boosting, di mana model dibangun secara iteratif dengan menambahkan pohon keputusan baru untuk mengurangi kesalahan dari pohon sebelumnya. Proses ini melibatkan pembelajaran dari residual error (selisih antara prediksi dan nilai aktual) yang dihasilkan oleh pohon sebelumnya. CatBoost secara khusus mengatasi data kategorikal dengan cara target encoding yang efisien, sehingga tidak memerlukan pra-pemrosesan seperti One-Hot Encoding atau Label Encoding. Selain itu, CatBoost menggunakan teknik ordered boosting yang menghindari overfitting dengan permutasi acak dalam pembagian data, serta penerapan regularisasi untuk meningkatkan generalisasi model. Algoritma ini dirancang untuk mengelola dataset besar dengan cepat dan efisien, serta secara otomatis menangani nilai yang hilang tanpa memerlukan banyak pengaturan atau intervensi dari pengguna.
+- **Cara Kerja** : CatBoost bekerja dengan menggunakan prinsip gradient boosting, di mana model dibangun secara iteratif dengan menambahkan pohon keputusan baru untuk mengurangi kesalahan dari pohon sebelumnya. CatBoost secara khusus mengatasi data kategorikal dengan cara target encoding yg efisien, sehingga tidak memerlukan pra-pemrosesan seperti One-Hot Encoding atau Label Encoding. Selain itu, CatBoost menggunakan teknik **ordered boosting** yg menghindari overfitting dengan permutasi acak dalam pembagian data, serta penerapan regularisasi untuk meningkatkan generalisasi model. Algoritma ini dirancang untuk mengelola dataset besar dengan cepat dan efisien, serta secara otomatis menangani nilai yang hilang tanpa memerlukan banyak pengaturan atau intervensi dari pengguna.
 
 hyperparameter yg digunakan untuk melatih **CatBoost** ialah :
 
@@ -699,6 +699,35 @@ cat.fit(x_resampled, y_resampled)
 -----------------------------------------------------------------------------------------------
 
 ### 6. Stacking Model (Fusion All Created Model)
+setelah melatih model ensemble, selanjutnya kita akan menggabungkan semua model tersebut menjadi 1 model yg lebih kuat menggunakan Stacking Model.
+
+- **Cara Kerja :**
+  Stacking Model bekerja dgn melatih beberapa model dasar (base models) pada dataset yang sama, lalu menggunakan prediksi dari model-model tersebut sebagai input untuk melatih model (disebut sebagai meta-model).
+  ```python
+  model = StackingClassifier(
+    estimators=[
+        ('GBM', gbm),
+        ('LGBM', lgbm,),           
+        ('AdaBoost', adaboost),
+        ('xgb', xgboost),
+        ('catboost', cat)
+    ],  
+        final_estimator = RandomForestClassifier(),  # META-MODEL
+        cv=cv_fold )
+
+Model seperti GBM, LGBM, AdaBoost, XGBoost, CatBoost merupakan Base Model nya. sedangkan Random Forest merupakan Meta-Modelnya. <br>
+Note : Meta-model bisa menggunakan jenis model yg lain, seperti Logistic Regression, Support Vector Machine (SVM), K-NN, dll.
+
+setelah dilatih, maka bentuk pipeline nya seperti ini :
+
+![]()
+
+ok mari kita check base model yg paling berpengaruh dan penting dalam Stacking Model :
+![base models evaluation](data/stacking-model-result.png)
+
+diurutan pertama ada CatBoost yg memberikan kontribusi signifikan, diikuti dgn AdaBoost, GBM, LGBM, XGBoost. <br> <br>
+
+**ok sekarang saya akan menilai dan mengevaluasi seberapa akurat Stacking Model ini menggunakan Metric Evaluasi Roc-Auc.** 
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
