@@ -437,11 +437,54 @@ lalu untuk teknik kedua yg saya gunakan yaitu teknik **Deep Learning**. Saya men
 ### A. Machine Learning Model
 
 1. **Gradient Boosting Machine**
+```python
+Gradient Boosting Machine (GBM) adalah metode ensemble learning yang digunakan untuk membangun model prediksi yang kuat
+dengan menggabungkan beberapa model yang lebih sederhana, biasanya decision trees, secara berurutan. Tujuan utamanya
+adalah untuk mengurangi kesalahan (error) dengan cara memperbaiki kesalahan dari model-model sebelumnya.
+```
+Secara teknis, gradient boosting adalah proses iteratif yang menggunakan gradient descent untuk mengoptimalkan fungsi loss. <br>
+dalam pembangunan GBM model , saya menggunakan **Optuna** untuk mencari hyperparameter terbaik. <br>
+hyperparameter yg saya gunakan untuk melatih **Gradient Boosting Machine** ialah :
+1. **`n_estimators`** :  jumlah iterasi atau jumlah pohon keputusan yang akan dibangun dalam proses boosting.
+2. **`learning_rate`** : mengontrol seberapa cepat model belajar untuk setiap estimator baru terhadap prediksi akhir
+3. **`max_depth`** : Pmenentukan kedalaman maksimum setiap pohon keputusan dalam model boosting. Semakin dalam pohon, semakin kompleks modelnya, dan bisa meningkatkan risiko overfitting. membuat pohon yg dangkal pun bisa rentan terhadap underfitting
+4. **`min_samples_split`** : menentukan jumlah minimum sampel yg diperlukan untuk membagi sebuah node dalam pohon keputusan. Jika jumlah sampel di node lebih sedikit dari nilai ini, maka node tersebut tidak akan dibagi lebih lanjut. Nilai yg lebih tinggi membantu mengurangi kompleksitas pohon dan mengurangi overfitting.
+5. **`max_features`** : Ini mengontrol jumlah fitur yang dipertimbangkan untuk setiap split dalam Decision Tree
+6. **`random_state`** : Seed acak untuk ke-konsistensian data
+
+kemudian saya menjalankan optuna selama 20 trials (percobaan) untuk mencari best hyperparameternya 
+```python
+n_estimators     = trial.suggest_int('n_estimators', 50,2000)
+    learning_rate    = trial.suggest_uniform('learning_rate', 0.001, 1)
+    max_depth        = trial.suggest_int('max_depth', 2, 16)
+    min_sample_split = trial.suggest_int('min_samples_split', 2, 25)
+    max_features     = trial.suggest_int('max_features', 5, 60)
+```
+setelah didapatkan best hyperparametersnya , saya melatih GBM menggunakan best hyperparameters tsb.
+```python
+gbr_best_params = {'n_estimators': 1588, 'learning_rate': 0.1867130929904072, 'max_depth': 16, 'min_samples_split': 11, 'max_features': 15}
+
+gbm = GradientBoostingClassifier(random_state= seed_value, **gbr_best_params)
+gbm.fit(x_resampled,y_resampled)
+```
+dimana **`gbr_best_params`** merupakan best hyperparameters yg telah didapatkannya.
 
 
+--------------------------------------------------------------------------
+2. **Light Gradient Boosting Machine (LGBM)**
+```python
+Light Gradient Boosting Machine (LightGBM) merupakan varians dari GBM yg dikembangkan oleh Microsoft yg dirancang
+untuk menangani dataset yang besar dengan efisien dan lebih cepat dibanding model Gradient Boosting Machine.
+```
+- **Cara kerja** :
+  berbeda dgn GBM yg menggunakan pendekatan **level-wise**, LGBM menggunakan pendekatan **leaf-wise**,  yang berarti pohon dibangun dengan memilih cabang yang dapat mengurangi kesalahan (residual) paling banyak terlebih dahulu. Pendekatan ini memungkinkan LightGBM menghasilkan model yang lebih akurat, tetapi juga bisa lebih rentan terhadap overfitting jika tidak diatur dengan baik. <br>
 
-
-
+hyperparameter yg digunakan dalam melatih dan mencari best hyperparameters nya :
+1. **`boosting_type`** : menentukan jenis boosting yang digunakan oleh model
+2. **`num_leaves`** : Menentukan jumlah maksimum daun (leaf) pada pohon keputusan. Ini adalah salah satu parameter penting yang mengatur kompleksitas model. Semakin banyak daun, semakin kompleks modelnya, dan bisa meningkatkan risiko overfitting.
+3. **`max_depth`** : Menentukan kedalaman maksimum setiap pohon keputusan. Ini mengontrol ukuran pohon dan membantu menghindari overfitting dengan membatasi kedalaman pohon. Jika nilainya -1, kedalaman tidak dibatasi, dan pohon dapat tumbuh hingga batasan lainnya seperti num_leaves.
+4. **`learning_rate`** : Ini adalah parameter yang mengontrol seberapa besar kontribusi setiap pohon keputusan terhadap prediksi akhir.
+5. 
 
 
 
