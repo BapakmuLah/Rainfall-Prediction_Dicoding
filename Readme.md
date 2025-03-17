@@ -32,7 +32,7 @@ Bagian laporan ini mencakup:
 
 ### Problem Statements
 
-1. Bagaimana cara membangun model yang dapat mengklasifikasikan kejadian hujan berdasarkan fitur-fitur yg ada di dataset tsb?
+1. Bagaimana cara membangun model yang dapat mengklasifikasikan kejadian hujan yg bisa memprediksi ramalan cuaca di kota besar berdasarkan fitur-fitur yg ada di dataset tsb?
 2. Fitur mana saja yang memiliki korelasi signifikan dan berpengaruh dalam prediksi klasifikasi hujan? Sejauh mana masing-masing fitur mempengaruhi hasil prediksi?
 3. Bagaimana mengatasi ketidakseimbangan kelas pada data target agar model dapat belajar dengan baik dari setiap kelas dan meningkatkan akurasi prediksi, terutama pada kelas minoritas?
 
@@ -436,7 +436,7 @@ lalu untuk teknik kedua yg saya gunakan yaitu teknik **Deep Learning**. Saya men
 
 ### A. Machine Learning Model
 
-1. **Gradient Boosting Machine**
+### 1. **Gradient Boosting Machine**
 ```python
 Gradient Boosting Machine (GBM) adalah metode ensemble learning yang digunakan untuk membangun model prediksi yang kuat
 dengan menggabungkan beberapa model yang lebih sederhana, biasanya decision trees, secara berurutan. Tujuan utamanya
@@ -454,11 +454,37 @@ hyperparameter yg saya gunakan untuk melatih **Gradient Boosting Machine** ialah
 
 kemudian saya menjalankan optuna selama 20 trials (percobaan) untuk mencari best hyperparameternya 
 ```python
-n_estimators     = trial.suggest_int('n_estimators', 50,2000)
+# BUILD OPTUNA 
+study = optuna.create_study(direction='maximize')
+
+# START TO FIND BEST HYPERPARAMETERS
+study.optimize(func= gbr_objective, n_trials=20)
+```
+```python
+# FUNCTION TO TRAIN AND FIND BEST HYPERPARAMETERS WITH OPTUNA
+def gbr_objective(trial):
+
+    # SET HYPERPARAMETER VALUE RANGE
+    n_estimators     = trial.suggest_int('n_estimators', 50,2000)
     learning_rate    = trial.suggest_uniform('learning_rate', 0.001, 1)
     max_depth        = trial.suggest_int('max_depth', 2, 16)
     min_sample_split = trial.suggest_int('min_samples_split', 2, 25)
     max_features     = trial.suggest_int('max_features', 5, 60)
+    
+    # DECLARATE THE MODEL AND ITS HYPERPARAMETERS
+    gbr = GradientBoostingClassifier(
+        n_estimators      = n_estimators,
+        learning_rate     = learning_rate,
+        max_depth         = max_depth,
+        min_samples_split = min_sample_split,
+        max_features      = max_features,
+        random_state      = seed_value
+        )
+       
+    # CREATE SCORE EVALUATION (CV)
+    score = cross_val_score(estimator= gbr, X= x_resampled, y= y_resampled, scoring='roc_auc')
+
+    return score.mean()
 ```
 setelah didapatkan best hyperparametersnya , saya melatih GBM menggunakan best hyperparameters tsb.
 ```python
@@ -469,9 +495,17 @@ gbm.fit(x_resampled,y_resampled)
 ```
 dimana **`gbr_best_params`** merupakan best hyperparameters yg telah didapatkannya.
 
+- **Kelebihan :**
+  1. GBM bisa menghasilkan hasil akurasi yg tinggi dan memuaskan
+  2. GBM dapat menangani hubungan non-linear antar fitur tanpa membutuhkan transformasi data khusus (misalnya, normalisasi atau standardisasi).
+  3. GBM dapat menangani data numerik maupun kategorikal. Meskipun fitur kategorikal sering kali membutuhkan pra-pemrosesan,
+- **Kelemahan :**
+  1. Waktu pelatihan yg sangat lama, apalagi jika dataset sangat besar.
+  2. Rentan terhadap Overfitting jika terlalu banyak Decision Tree
+  3. Jika dataset mengandung banyak noise, GBM dapat lebih rentan untuk "menghafal" noise tersebut, yang menyebabkan model menjadi tidak generalizable dan performanya menurun pada data yang belum pernah dilihat sebelumnya.
 
 --------------------------------------------------------------------------
-2. **Light Gradient Boosting Machine (LGBM)**
+### 2. **Light Gradient Boosting Machine (LGBM)**
 ```python
 Light Gradient Boosting Machine (LightGBM) merupakan varians dari GBM yg dikembangkan oleh Microsoft yg dirancang
 untuk menangani dataset yang besar dengan efisien dan lebih cepat dibanding model Gradient Boosting Machine.
@@ -484,16 +518,193 @@ hyperparameter yg digunakan dalam melatih dan mencari best hyperparameters nya :
 2. **`num_leaves`** : Menentukan jumlah maksimum daun (leaf) pada pohon keputusan. Ini adalah salah satu parameter penting yang mengatur kompleksitas model. Semakin banyak daun, semakin kompleks modelnya, dan bisa meningkatkan risiko overfitting.
 3. **`max_depth`** : Menentukan kedalaman maksimum setiap pohon keputusan. Ini mengontrol ukuran pohon dan membantu menghindari overfitting dengan membatasi kedalaman pohon. Jika nilainya -1, kedalaman tidak dibatasi, dan pohon dapat tumbuh hingga batasan lainnya seperti num_leaves.
 4. **`learning_rate`** : Ini adalah parameter yang mengontrol seberapa besar kontribusi setiap pohon keputusan terhadap prediksi akhir.
-5. 
+5. **`n_estimators`** : banyak nya decision tree yg akan di bangun.
+6. **`min_child_weight`** : Parameter ini menentukan jumlah minimum dari total bobot data yang diperlukan dalam sebuah daun untuk membagi lebih lanjut. Ini membantu mencegah overfitting dengan memastikan bahwa setiap daun memiliki cukup data untuk membuat pembagian yang bermakna.
+7. **`min_child_samples`** : Menentukan jumlah sampel minimum yang diperlukan untuk membagi sebuah node. Jika sebuah node memiliki lebih sedikit sampel daripada nilai ini, maka node tersebut tidak akan dibagi lagi. Ini juga berfungsi untuk mencegah overfitting dengan mengontrol kedalaman dan kompleksitas pohon.
+8. **`subsample`** : Menentukan proporsi data yang akan dipilih secara acak untuk setiap iterasi (pohon keputusan). Jika nilai ini kurang dari 1, maka hanya sebagian data yang akan digunakan untuk melatih setiap pohon.
+9. **`reg_alpha`** : parameter untuk regularisasi L1 (Lasso) untuk mencegah overfitting.
+10. **`reg_lambda`** : Ini adalah parameter untuk regularisasi L2 (Ridge) untuk mengurangi overfitting dan menangani multikolinearitas fitur.
 
+kemudian saya menjalankan optuna selama 20 trials (percobaan) untuk mencari best hyperparameternya.
+```python
+    num_leaves        = trial.suggest_int('num_leaves',20,100)
+    max_depth         = trial.suggest_int('max_depth', 2, 15)
+    learning_rate     = trial.suggest_float('learning_rate', 0.001, 0.8)
+    n_estimators      = trial.suggest_int('n_estimators', 100, 2000)
+    min_child_weight  = trial.suggest_int('min_child_weight', 0.5, 5)
+    min_child_samples = trial.suggest_int('min_child_samples', 7, 20)
+    subsample         = trial.suggest_uniform('subsample', 0.4, 1)
+    reg_alpha         = trial.suggest_float('reg_alpha', 0.02, 15)
+    reg_lambda        = trial.suggest_float('reg_lambda', 0.02, 15)
+```
+setelah didapatkan best hyperparametersnya , saya melatih LGBM menggunakan best hyperparameters tsb.
+```python
+lgbm_best_params = {'num_leaves': 20, 
+                    'max_depth': 11, 
+                    'learning_rate': 0.5416470737551435, 
+                    'n_estimators': 822, 
+                    'min_child_weight': 0, 
+                    'min_child_samples': 16, 
+                    'subsample': 0.9819909834877366, 
+                    'reg_alpha': 0.18493572725631813, 
+                    'reg_lambda': 11.022396550855765}
 
+lgbm = lightgbm.LGBMClassifier(random_state= seed_value, **lgbm_best_params)
+lgbm.fit(x_resampled, y_resampled)
+```
 
+- **Kelebihan :**
+  1. LGBM lebih cepat dibanding Gradient Boosting Machine. bahkan bisa lebih cepat dibanding Model Ensemble lainnya
+  2. LGBM menggunakan lebih sedikit memori karena teknik pembagian histogram
+  3. LGBM dapat menangani fitur kategorikal secara langsung tanpa perlu melakukan encoding manual (seperti one-hot encoding atau label encoding).
+- **Kelemahan :**
+  1. Rentan terhadap Overfitting jika terdapat banyak Noise
+  2. sangat sensitif terhadap pemilihan parameters. jadi sebisa mungkin gunakan Cross-Validation untuk pemilihan Best Parameters
+ 
+--------------------------------------------------------------------------------
 
+### 3. **Adaptive Boosting (AdaBoost)**
+```python
+AdaBoost adalah salah satu teknik boosting yg menggabungkan beberapa model decision tree yg lemah (weak learner)
+menjadi satu model yg lebih kuat.
+```
+hyperparameter yg saya gunakan untuk melatih **Adaptive Boosting** ialah :
+1. **`base_estimator`** : Ini adalah model dasar (atau estimator) yang digunakan oleh AdaBoost untuk membangun ensemble. Secara default, estimator dasar adalah Decision Tree
+2. **`n_estimators`** : Ini menentukan jumlah estimator atau iterasi yang akan digunakan dalam proses boosting. Setiap estimator bertugas memperbaiki kesalahan yang dilakukan oleh model sebelumnya dengan memberikan bobot lebih pada contoh data yang salah diprediksi. Semakin banyak estimators, semakin kompleks modelnya, tetapi juga dapat meningkatkan risiko overfitting jika jumlahnya terlalu tinggi.
+3. **`learning_rate`** : Learning rate mengontrol seberapa besar kontribusi setiap estimator baru terhadap model akhir.
+
+kemudian saya menjalankan optuna selama 20 trials (percobaan) untuk mencari best hyperparameternya.
+```python
+n_estimators = trial.suggest_int('n_estimators', 50, 1000)
+    learning_rate = trial.suggest_float('learning_rate', 0.01, 1.0)
+    base_estimator_max_depth = trial.suggest_int('base_estimator_max_depth', 3, 15)
+
+    # SET DECISION TREE AS BASE ESTIMATOR
+    base_estimator = DecisionTreeClassifier(max_depth=base_estimator_max_depth)
+
+    # DECLARATE ADABOOST MODEL
+    adaboost = AdaBoostClassifier(base_estimator=base_estimator,
+                                 n_estimators=n_estimators,
+                                 learning_rate=learning_rate)
+```
+pada kode tsb, saya menggunakan **Decision Tree** sebagai base estimator nya. kamu bisa mengganti base estimator menjadi model lain seperti **Logistic Regression, Support Vector Machine (SVM), Naive Bayes**, atau yg lainnya. <br> <br>
+
+setelah didapatkan best hyperparametersnya , saya melatih **AdaBoost** menggunakan best hyperparameters tsb.
+```python
+adaboost_best_params = {'n_estimators': 631, 'learning_rate': 0.9873704642286297, 'base_estimator_max_depth': 12}
+
+base_estimator = DecisionTreeClassifier(max_depth=adaboost_best_params['base_estimator_max_depth'])
+
+adaboost = AdaBoostClassifier(
+    base_estimator=base_estimator,
+    n_estimators=adaboost_best_params['n_estimators'],
+    learning_rate=adaboost_best_params['learning_rate'],
+    random_state=seed_value
+)
+```
+
+- **Kelebihan :**
+  1. Adaboost bisa menggabungkan model selain Decision Tree (Seperti Logistic Regression, SVM, dll) yg bisa menghasilkan prediksi yg lebih akurat.
+  2. Pada dataset yang tidak terlalu besar, AdaBoost dapat memberikan kinerja yang sangat baik, terutama pada dataset yang memiliki banyak noise atau outlier.
+  3. Adaboost lebih mudah diimplementasikan dan tidak terlalu banyak parameter
+ 
+- **Kelemahan :**
+  1. Jika dataset sangat besar, AdaBoost bisa membutuhkan waktu yang cukup lama untuk melatih model karena ia melakukan banyak iterasi dan mengharuskan pelatihan model pada beberapa subset data dengan bobot yang berubah setiap kali.
+  2. Adaboost kurang efektif jika menangani multikelas
+  
+
+-------------------------------------------------------------------------------------------
+
+### 4. **Extreme Gradient Boosting Machine (XGBOOST)**
+```python
+XGBoost merupakan salah satu teknik ensemble yg digunakan dalam membuat model machine learning.
+Setiap pohon keputusan yang dibangunfokus pada mengurangi kesalahan yang belum terprediksi
+oleh pohon sebelumnya, menggunakan optimasi gradient descent. XGBoost meningkatkan efisiensi dengan regularisasi
+untuk mencegah overfitting, parallelization untuk mempercepat proses pelatihan,serta menggunakan
+second-order approximation (turunan kedua) untuk optimasiyang lebih cepat dan akurat.
+Selain itu, XGBoost juga menangani data hilang secara otomatis
+```
+<br>
+hyperparameter yg saya gunakan untuk melatih **XGBoost** ialah :
+
+1. **`n_estimators`** : jumlah model Decision tree yg akan dibangun.
+2. **`learning_rate`** : seberapa besar kontribusi setiap pohon keputusan yang baru ke dalam prediksi akhir.
+3. **`max_depth`** : Kedalaman maksimum untuk setiap Decision Tree
+4. **`min_child_weight`** : Menentukan bobot minimum total sampel dalam satu anak cabang pohon keputusan.
+5. **`subsample`** : Menentukan proporsi sampel yang digunakan untuk membangun setiap pohon.
+6. **`gamma`** : Menentukan regularisasi tambahan yang diterapkan pada pembelahan pohon.
+7. **`reg_alpha`** : Menentukan regularisasi L1 (Lasso) untuk mengurangi overfitting dan menghapus fitur yg tidak relevan.
+8. **`reg_lambda`** : menentukan regularisasi L2 (Ridge) untuk mengurangi overfitting dan Mencegah Multikolinearitas
+9. **`Random_state`** : Seed Acak
+
+sebelum melatih XGBoost, saya terlebih dahulu menemukan best hyperparameters menggunakan Optuna. saya melakukan Cross Validation menggunakan Optuna sebanyak 20 Trials (Percobaan). <br>
+
+setelah didapatkan best hyperparametersnya , saya melatih **XGBoost** menggunakan best hyperparameters tsb.
+```python
+xgb_best_params = {'n_estimators': 751, 'learning_rate': 0.2370081389976112, 'max_depth': 7, 'min_child_weight': 9.895958505716344, 'subsample': 0.6370760160975184, 'gamma': 0.11998250705831778, 
+'reg_alpha': 6.265433235121968, 'reg_lambda': 4.36382054864632}
+
+xgboost = xgb.XGBClassifier(random_state= seed_value, **xgb_best_params)
+xgboost.fit(x_resampled, y_resampled)
+```
+
+- **Kelebihan :**
+  1. cepat dan lebih efisien dalam pelatihannya
+  2. Hasil Evaluasi nya memuaskan
+- **Kekurangan :**
+  1. Penggunaan Memori sangat tinggi , bahkan jika model nya kompleks dan data nya terlalu besar
+  
+---------------------------------------------------------------------------------------------
+
+### 5. Categorical Boosting (CatBoost)
+```python
+Categorical Boosting A.K.A CatBoost adalah algoritma Ensemble yg dikembangkan oleh Yandex (Perusahaan Russia).
+Singkatnya, CatBoost adalah implementasi dari Gradient Boosting yang mengoptimalkan model dengan menggunakan prinsip
+gradient descent untuk meminimalkan fungsi kerugian (loss function).
+```
+
+- **Cara Kerja** : CatBoost bekerja dengan menggunakan prinsip gradient boosting, di mana model dibangun secara iteratif dengan menambahkan pohon keputusan baru untuk mengurangi kesalahan dari pohon sebelumnya. Proses ini melibatkan pembelajaran dari residual error (selisih antara prediksi dan nilai aktual) yang dihasilkan oleh pohon sebelumnya. CatBoost secara khusus mengatasi data kategorikal dengan cara target encoding yang efisien, sehingga tidak memerlukan pra-pemrosesan seperti One-Hot Encoding atau Label Encoding. Selain itu, CatBoost menggunakan teknik ordered boosting yang menghindari overfitting dengan permutasi acak dalam pembagian data, serta penerapan regularisasi untuk meningkatkan generalisasi model. Algoritma ini dirancang untuk mengelola dataset besar dengan cepat dan efisien, serta secara otomatis menangani nilai yang hilang tanpa memerlukan banyak pengaturan atau intervensi dari pengguna.
+
+hyperparameter yg digunakan untuk melatih **CatBoost** ialah :
+
+1. **`iterations`** : jumlah total iterasi atau pohon keputusan (trees) yang akan dibangun selama proses pelatihan.
+2. **`learning_rate`** : mengontrol seberapa besar model belajar untuk setiap Decision Tree yg dibangun
+3. **`depth`** : Kedalaman maksimum dari Decision Tree
+4. **`l2_leaf_reg`** : parameter regularisasi yang mengontrol penalti pada bobot pohon keputusan untuk mencegah overfitting
+5. **`subsample`** : proporsi sampel data yang digunakan untuk membangun setiap pohon keputusan. nama lainnya disebut subsampling
+6. **`colsample_bylevel`** : Menentukan proporsi fitur yang dipilih secara acak pada setiap level pohon.
+7. **`min_data_in_leaf`** : jumlah minimum data yang diperlukan dalam sebuah leaf pohon keputusan.
+8. **`max_bin`** : jumlah maksimum bin yang digunakan untuk memproses fitur kontinu. Fitur kontinu akan dibagi menjadi beberapa bin untuk mempercepat pembelajaran.
+
+sebelum melatih CatBoost, saya terlebih dahulu menemukan best hyperparameters menggunakan Optuna. saya melakukan Cross Validation menggunakan Optuna sebanyak 20 Trials (Percobaan). <br>
+setelah didapatkan best hyperparametersnya , saya melatih **CatBoost** menggunakan best hyperparameters tsb.
+```python
+# FIT AND TRAIN CATBOOST MODEL
+
+catboost_best_params = {'iterations': 445, 'learning_rate': 0.031759978116715874, 'depth': 10, 'l2_leaf_reg': 0.13465148784245187, 'subsample': 0.6277247041610173, 
+'colsample_bylevel': 0.712156508332904, 'min_data_in_leaf': 67, 'max_bin': 111}
+
+cat = catboost.CatBoostClassifier(random_state= seed_value, devices=0,**catboost_best_params)
+cat.fit(x_resampled, y_resampled)
+```
+
+- **Kelebihan :**
+  1. Bisa menangani data kategorical langsung tanpa harus diubah ke dalam ordinal encoding/one-hot encoding. catboost secara otomatis menangani data kategorical menggunakan *Target Encoding*.
+  2. CatBoost menggunakan teknik **Ordered Boosting** yg bisa mengurangi overfitting, bahkan ketika distribusi data tidak seimbang dan banyak outlier
+  3. CatBoost bisa digunakan untuk Klasifikasi, Regresi, dan Ranking.
+- **Kelemahan :**
+  1. CatBoost memakan banyak memori, bahkan ketika model terlalu kompleks dan dataset nya besar.
+  2. Pada beberapa kasus di mana dataset memiliki banyak fitur numerik dan sedikit fitur kategorikal, CatBoost mungkin tidak memberikan performa yang lebih baik dibandingkan dengan algoritma lain yang lebih terfokus pada fitur numerik.
+
+-----------------------------------------------------------------------------------------------
+
+### 6. Stacking Model (Fusion All Created Model)
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
 - Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
 - Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
 - Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+
 
 
 
