@@ -155,13 +155,14 @@ dtype: int64
 Terdapat 1 nilai yg hilang untuk fitur *winddirection* dari dataset test.csv 
 
 ### 📊 Check Data Distribution 🌐
-![Data Distribution Comparison](data/DataDistribution.png)
+![DataDistribution](https://github.com/user-attachments/assets/876b3d6a-0657-4990-a031-d639f99b3f7b)
 
 dari distribusi data tsb, saya membandingkan distribusi antara train and test data. lalu dapat disimpulkan bahwa distribusi data antara data train and test itu terlihat sama satu sama lain. ok sekarang mari kita tampilkan perbandingan distribusi antara prediksi hujan dan tidak hujan dalam Train data.
 
-![Data Distribution Rainfall Distribution](data/Rain-Prediction-Train-data.png)
+![Rain-Prediction-Train-data](https://github.com/user-attachments/assets/2d16265d-373c-4b4c-82d8-c9c526a5d813)
 
 Note :
+
    - Batang berwarna **Kuning** merupakan distribusi untuk Prediksi Hujan
    - Batang berwarna **Biru muda** merupakan distribusi untuk prediksi tidak hujan
    - Batang berwarna **abu-abu** merupakan distribusi gabungan antara distribusi hujan dan tidak hujan
@@ -181,7 +182,7 @@ Note :
 
 selanjutnya kita akan cek perbandingan distribusi antara Prediksi Hujan dan Tidak Hujan <br>
 
-![rainfall-distribution](data/rainfall-distribution.png)
+![rainfall-distribution](https://github.com/user-attachments/assets/49ef9e5a-e59c-4dbe-a73a-f80dead37d2e)
 
 
 pada distribusi ini , terjadi ketidakseimbangan data (Imbalance Data) antara prediksi hujan dan tidak hujan. 
@@ -197,7 +198,7 @@ untuk menangani ini, saya akan mencoba melakukan teknik *Oversampling* untuk men
 
 dari distribusi data tsb, mari kita cek seberapa normal distribusi data tsb menggunakan *QQ-Plot*
 
-![QQ-plot](data/QQ-plot.png)
+![QQ-plot](https://github.com/user-attachments/assets/a80ca2b3-4609-45d5-8d88-218120643c75)
 
 Titik-titik data yang lurus sepanjang garis merupakan distribusi normal. Sementara titik-titik data yang membelok ke kiri/kanan merupakan distribusi yang miring. Nilai R2 menunjukkan seberapa dekat kumpulan data tersebut mendekati distribusi normal. Semakin tinggi nilai R2, semakin dekat dengan distribusi normal.
 dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling mendekati distribusi normal. <br>
@@ -205,7 +206,7 @@ dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling 
 
 ### 🔗 Check Correlation 🔍
 
-![independent-pearson-correlation](data/independent-correlation_pearson.png)
+![independent-correlation_pearson](https://github.com/user-attachments/assets/be29d88e-372f-4c8d-bc5e-a8631c2da51f)
 
 1. **Korelasi sangat tinggi (Multikolinearitas sangat tinggi)**
    1. **maxtemp ↔ temperature (0.94)** <br>
@@ -247,7 +248,7 @@ dari QQ-plot tsb. **pressure, humidity, windspeed** merupakan 3 fitur yg paling 
 *Tujuan membuat heatmap dari **Korelasi Pearson** ini adalah untuk melihat interaksi antar variable dan juga untuk menghindari dan menangani variable2 independen yg saling berkorelasi kuat.* <br> 
 ok selanjutnya saya akan menampilkan bagaimana hubungan/korelasi antara variable independent dgn variable dependent (**rainfall**) dgn menggunakan **Korelasi Spearman**. 
 
-![dependent_correlation-spearman](data/dependent-correlation_pearson.png)
+![dependent-correlation_pearson](https://github.com/user-attachments/assets/72b215bd-f212-47ce-848c-67888fdab99f)
 
 📝 Penjelasan :
    1. **cloud (0.56)** : Memiliki korelasi positif tertinggi dengan rainfall. Artinya, berdasarkan data ini, semakin tinggi nilai cloud, cenderung diikuti oleh meningkatnya rainfall (berlaku sebaliknya).
@@ -257,7 +258,7 @@ ok selanjutnya saya akan menampilkan bagaimana hubungan/korelasi antara variable
 
 ----------------------------------------------------------------------------------------------------
 
-![kde plot](data/kde-plot.png)
+![kde-plot](https://github.com/user-attachments/assets/26452ed1-515f-4085-a2ee-fd3384166a37)
 
 menampilkan kde plot untuk membandingkan distribusi probabilitas antara prediksi hujan dan tidak hujan. *sebenarnya visualisasi kde-plot ini sama dgn visualisasi bar chart dari distribusi rainfall tadi, namun kde-plot ini lebih mudah untuk dibaca*. <br>
       
@@ -271,7 +272,7 @@ ini adalah bar chart untuk menampilkan fitur paling penting menggunakan Tree-Bas
 ### 🚨 Check for Outliers 🔎
 <br>
 
-![boxplot for checking outlier](data/boxplot.png)
+![boxplot](https://github.com/user-attachments/assets/f7f7fa58-df2b-4456-9c8e-2772eaa45940)
 
 dari box-plot tsb, terdapat beberapa outlier:
    1. **pressure** : terdapat hanya ada 2 sedikit outlier. outlier seperti ini bisa kita abaikan atau bisa digunakan winsorization untuk membatasi nilai ke dalam threshold tertentu.
@@ -403,7 +404,7 @@ untuk menangani imbalance data, saya menggunakan teknik SVM SMOTE untuk membuat 
 
 inilah perbandingannya : 
 
-![](data/oversampling-scatter-plot.png)
+![oversampling-scatter-plot](https://github.com/user-attachments/assets/a0b86c0f-9421-48ae-a8e1-0f1043db2b23)
 
 
 ## Modeling
@@ -718,10 +719,11 @@ Note : Meta-model bisa menggunakan jenis model yg lain, seperti Logistic Regress
 
 setelah dilatih, maka bentuk pipeline nya seperti ini :
 
-![stacking pipeline](https://github.com/BapakmuLah/Rainfall-Prediction_Dicoding/blob/8a95a43014c73e35304bec5bf0242db61e757456/data/Cuplikan%20layar%202025-03-17%20133916.png) 
+![Image](https://github.com/user-attachments/assets/aeaff167-16eb-43ae-9388-65a1f46248d4)
 
 ok mari kita check base model yg paling berpengaruh dan penting dalam Stacking Model :
-![base models evaluation](data/stacking-model-result.png)
+
+![stacking-model-result](https://github.com/user-attachments/assets/0800c094-8c84-42f0-9215-5b969a093ab9)
 
 diurutan pertama ada CatBoost yg memberikan kontribusi signifikan, diikuti dgn AdaBoost, GBM, LGBM, XGBoost. <br> <br>
 
@@ -733,7 +735,7 @@ diurutan pertama ada CatBoost yg memberikan kontribusi signifikan, diikuti dgn A
 
 - **ROC-AUC terdiri dari 2 komponen utama**
 
-![roc-auc curve](data/ROC-curves-and-area-under-curve-AUC.png)
+![Roc-Auc-Explained](https://github.com/user-attachments/assets/9fdd742e-ba10-4bf6-8894-8bccbecebe03)
 
 <br>
 
@@ -751,11 +753,12 @@ diurutan pertama ada CatBoost yg memberikan kontribusi signifikan, diikuti dgn A
    AUC mengukur luas area di bawah ROC curve, yang memberi gambaran seberapa baik model dalam membedakan antara kelas positif dan negatif. AUC > 0.5 menunjukkan model yang lebih baik dari tebakan acak, dan semakin mendekati 1 semakin baik.
 
 <br><br>
-![evaluasi stacking roc-auc](data/roc-auc_ML.png)
 
-Nilai AUC sebesar 0,8 menunjukkan bahwa model memiliki kemampuan yang baik dalam membedakan kelas positif (hujan) dan negatif (tidak hujan). Nilai ini berada pada rentang sangat baik (0,8-1,0). ok sekarang mari kita tampilkan nilai distribusi probabilitas nya yg diprediksi oleh model dari data validation
+![roc-auc_ML](https://github.com/user-attachments/assets/efd4a884-924a-4fab-a520-3f98513515e0)
 
-![](data/prediction-probability_ML.png)
+Nilai AUC sebesar 0,86 menunjukkan bahwa model memiliki kemampuan yang baik dalam membedakan kelas positif (hujan) dan negatif (tidak hujan). Nilai ini berada pada rentang sangat baik (0,8-1,0). ok sekarang mari kita tampilkan nilai distribusi probabilitas nya yg diprediksi oleh model dari data validation
+
+![prediction-probability_ML](https://github.com/user-attachments/assets/608f9959-8e4c-4eb8-bd15-4646208d0cb4)
 
 - Nilai probabilitas yang mendekati 1 berarti model sangat yakin dalam memprediksi bahwa prediksi tersebut adalah hujan.
 - Nilai probabilitas yang mendekati 0 berarti model sangat yakin dalam memprediksi bahwa tidak akan turun hujan.
@@ -767,7 +770,8 @@ Nilai probabilitas yang berada di tengah-tengah antara rentang 0 - 1 (misalnya ~
 ### B. Deep Learning Model
 setelah membuat Stacking Model, selanjutnya saya akan membuat Deep Learning Model menggunakan Arsitektur FeedForward Neural Network, dan hasil akhirnya akan saya bandingkan dgn model yg dibuat sebelumnya.  <br>
 
-![Feedforward Architecture](https://github.com/BapakmuLah/Rainfall-Prediction_Dicoding/blob/b8ebdc06b5ca3f19d138b1fc5f7419f6658f3c73/data/neural-net.png)
+![neural-net](https://github.com/user-attachments/assets/15dd09ee-cefd-418f-ad93-9fda3e12c781)
+
 <br>
 dalam membangun arsitektur Neural Network ini, saya menggunakan Keras-Tuner untuk membuat dan memilih nilai neuron beserta komponen nya yg terbaik secara otomatis. penggunaan **Keras-Tuner** Bertujuan untuk menemukan kombinasi hyperparameter yang optimal. 
 
@@ -795,18 +799,21 @@ disini saya mendefinisikan Keras-Tuner dan menggunakan fungsi Objective `val_auc
 ### Hasil Evaluasi
 setelah hasilnya didapatkan, saya mengevaluasinya menggunakan metrics ROC-AUC dari data Validation.
 
-![roc-auc](data/roc-auc_DL.png) 
+![roc-auc_DL](https://github.com/user-attachments/assets/ef8ef65f-4c59-40ab-a9cb-834570c52600)
+
 <br>
 hasil nya terlihat, terdapat peningkatan nilai ROC-AUC signifikan setelah menggunakan **Neural Network + Best Hyperparameters** , Yaitu nilai ROC-AUC nya sebesar 0.92 . <br>
 
 ok selanjutnya kita tampilkan distribusi probabilitas prediksi nya dan menampilkan **Confusion Matrix Probabilitas** nya 
-![distribusi probabilitas Neural Network](data/prediction-probability_DL.png)
 
-![confusion matrix](data/confusion-matrix_probability.png)
+![prediction-probability_DL](https://github.com/user-attachments/assets/8d8b3172-fdeb-48ec-94c4-544b09234673)
+
+![confusion-matrix_probability_DL](https://github.com/user-attachments/assets/00a9c64e-3f1b-470b-ab2a-16a70f0eb311)
+
 <br>
 Mari kita plot Feature Importance dari model Neural Network nya
 
-![Feature Importance Shap](data/shap-features.png)
+![shap-features](https://github.com/user-attachments/assets/2872f94f-a318-407a-8e08-aca603669aee)
 
 saya melakukan analisis Feature Importance menggunakan SHAP.
 
@@ -832,7 +839,7 @@ Pada tahap ini, saya akan Mengevaluasi model yg telah didapatkan menggunakan Met
 
 - **ROC-AUC terdiri dari 2 komponen utama**
 
-![roc-auc curve](data/ROC-curves-and-area-under-curve-AUC.png)
+![ROC-curves-and-area-under-curve-AUC](https://github.com/user-attachments/assets/9d7e3816-46e9-4f7a-9416-8d9e1f0b5214)
 
 <br>
 
@@ -849,7 +856,30 @@ Pada tahap ini, saya akan Mengevaluasi model yg telah didapatkan menggunakan Met
 2. **AUC (Area Under the Curve)**
    AUC mengukur luas area di bawah ROC curve, yang memberi gambaran seberapa baik model dalam membedakan antara kelas positif dan negatif. AUC > 0.5 menunjukkan model yang lebih baik dari tebakan acak, dan semakin mendekati 1 semakin baik.
 
-![roc-auc](data/roc-auc_DL.png) 
+### A. Machine Learning Evaluation (Stacking Model)
+
+![roc-auc_ML](https://github.com/user-attachments/assets/c0b77045-3ad1-4360-bf1e-23990a4dbb84)
+
+Nilai AUC sebesar 0,86 menunjukkan bahwa model memiliki kemampuan yang baik dalam membedakan kelas positif (hujan) dan negatif (tidak hujan). Nilai ini berada pada rentang sangat baik (0,8-1,0). ok sekarang mari kita tampilkan nilai distribusi probabilitas nya yg diprediksi oleh model dari data validation
+
+![prediction-probability_ML](https://github.com/user-attachments/assets/ad7ccb73-3338-4f1a-9af0-ae77db910f9f)
+
+- Nilai probabilitas yang mendekati 1 berarti model sangat yakin dalam memprediksi bahwa prediksi tersebut adalah hujan.
+- Nilai probabilitas yang mendekati 0 berarti model sangat yakin dalam memprediksi bahwa tidak akan turun hujan.
+Nilai probabilitas yang berada di tengah-tengah antara rentang 0 - 1 (misalnya ~0,5) menunjukkan bahwa model ragu-ragu dalam memprediksi apakah akan turun hujan atau tidak. <br>
+<strong>Dari histogram Di Atas, model lebih yakin dalam memprediksi data yang diyakini akan turun hujan daripada dalam memprediksi data yang diyakini tidak turun hujan.</strong>
+
+ok sekarang kita check feature importance untuk Stacking Model
+![stacking-model-result](https://github.com/user-attachments/assets/4a0d79f8-6d2d-43d5-bc7e-bfe731a6306d)
+
+Berdasarkan grafik tsb, terlihat bahwa stacking model memberikan koefisien yang berbeda untuk masing-masing base model. Nilai koefisien yang lebih tinggi mengindikasikan bahwa prediksi dari base model tersebut dianggap lebih penting atau lebih berpengaruh dalam membentuk prediksi akhir. <br>
+CatBoost mendapat bobot tertinggi (sekitar 0.32), menandakan meta-learner sangat mempengaruhi prediksinya. AdaBoost (0.24) menyusul sebagai kontributor penting, diikuti GBM (0.20) yang masih berperan signifikan. LightGBM (0.13) berkontribusi lebih rendah, tetapi tetap membantu, dan XGBoost (0.10) memiliki bobot terendah, menunjukkan prediksinya relatif kurang berdampak.
+
+---------------------------------------------------------------------------------------
+
+### B. Deep Learning Evaluation (FeedForward Neural Network)
+
+![roc-auc_DL](https://github.com/user-attachments/assets/406217f1-20a6-4044-b574-c25712dd3dbb)
 
 nilai ROC-AUC sebesar 0.92 merupakan hasil yg paling baik diantara model-model sebelumnya. nilai ROC-AUC 0.92 menunjukkan jika model sangat baik dan yakin untuk dalam membedakan antara prediksi hujan dan tidak hujan. <br>
 
@@ -860,15 +890,22 @@ ok langkah selanjutnya saya akan memprediksi menggunakan **Data Test** yg belum 
 <br><br>
 setelah diprediksi, saya akan memvisualisasikan beberapa plot 
 
-![](data/predicted-class_test-data.png)
+![predicted-class_test-data](https://github.com/user-attachments/assets/7f13fbb9-d98b-456e-83e3-34219a4c3770)
 
 barplot itu menunjukkan bahwa model lebih banyak mengenali data yg dianggap hujan dibanding tidak hujan. terlihat hampir 70% model memprediksi data test sebagai hujan, yg mana 579 jumlah data diprediksi sebagai hujan , sedangkan 151 data lainnya diprediksi sebagai tidak hujan oleh model.
 
-![](data/prediction-probability_test-data.png)
+![prediction-probability_test-data](https://github.com/user-attachments/assets/d2efa127-2485-42b6-a6ba-586202115388)
 
 Distribusi Probabilitas ini menunjukkan seberapa yakin model melakukan Prediksi terhadap data test. nilai yg mendekati 1 artinya model sangat yakin jika data yg diprediksi merupakan data yg diklasifikasikan sebagai hujan, dan nilai yg mendekati 0 artinya model sangat yakin jika data yg diprediksi merupakan data yg diklasifikasikan sebagai tidak hujan. nilai yg berada di tengah-tengah (diantara 0.5) artinya model ragu2 untuk menentukan apakah data tsb akan diklasifikasikan sebagai hujan/tidak hujan. <br><br>
 
-**ok terakhir kita akan mengecek Karakteristik data untuk setiap kategori hujan dan tidak hujan yg telah diprediksi oleh model**
+<h3><strong>Perbandingan : </strong></h3>
+
+**Hasil Evaluasi untuk nilai ROC-AUC pada Stacking Model sebesar 0.86 dan Hasil Evaluasi untuk nilai ROC-AUC pada model Feed Forward Neural Network sebesar 0.92 . hal ini menunjukkan jika Model Deep Learning masih memberikan performa yg lebih baik dibandingkan Stacking model, karena model deep learning Neural Network bisa menangkap hubungan non-linear antar data dan menangkap hubungan lebih kompleks yg dimana Stacking Model tidak bisa menangani nya. Meskipun keduanya sama-sama dilakukan Fine-Tuning, namun model Deep Learning Neural Network masih memberikan hasil yg lebih baik dibanding Stacking Model, itu karena Model Deep Learning (Neural Network) dapat mempelajari representasi fitur secara end-to-end, mengoptimalkan parameter secara bersama-sama untuk meminimalkan Global Error (fungsi objektif).**
+
+**Jadi, untuk Hasil Akhirnya saya akan menggunakan Model Deep Learning Neural Network!**
+<br>
+
+**ok terakhir kita akan mengecek Karakteristik data untuk setiap kategori hujan dan tidak hujan yg telah diprediksi oleh model Menggunakan Model Terbaik (yaitu Deep Learning)**
 
 - ### Pertama, Saya akan mengecek Karakteristik setiap Fitur apakah terdapat perbedaan Signifikan antara Data yg diprediksi hujan dan Data yg diprediksi Tidak Hujan oleh Model.
 <br>
