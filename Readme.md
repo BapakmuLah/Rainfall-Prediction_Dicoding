@@ -24,10 +24,6 @@ Curah hujan yang tidak menentu dapat menyebabkan banjir, kekeringan, dan kerugia
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
 ### Problem Statements
 
 1. Bagaimana cara membangun model yang dapat mengklasifikasikan kejadian hujan yg bisa memprediksi ramalan cuaca di kota besar dan mencegah terjadinya banjir berdasarkan fitur-fitur yg ada di dataset tsb?
